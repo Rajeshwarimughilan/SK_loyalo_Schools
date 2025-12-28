@@ -1,0 +1,63 @@
+.floating-ctas {
+  position: fixed;
+  right: 18px;
+  top: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  z-index: 30;
+}
+
+.floating-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  background: #0b6b4b;
+  color: #ffffff;
+  border-radius: 14px 0 0 14px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  border: 1px solid #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.floating-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+  background: #0e7c57;
+}
+
+.floating-btn .icon {
+  font-size: 24px;
+  line-height: 1;
+  color: #ffffff;
+  filter: brightness(1);
+}
+
+.floating-btn .text {
+  line-height: 1;
+}
+
+
+.chevron {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .floating-ctas {
+    right: 12px;
+    top: auto;
+    bottom: 24px;
+  }
+
+  .floating-btn {
+    padding: 10px 14px;
+  }
+}
