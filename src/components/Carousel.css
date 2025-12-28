@@ -1,0 +1,220 @@
+.carousel-shell {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  border-radius: 0;
+  overflow: hidden;
+  background: #ecf5ff;
+  box-shadow: none;
+  margin: 0;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide.is-active {
+  opacity: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent, rgba(12, 36, 60, 0.8));
+  color: #fff;
+  padding: 30px 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Overlay transparent card */
+.carousel-overlay {
+  position: absolute;
+  left: 5%;
+  top: 60%;
+  transform: translateY(-50%);
+  z-index: 12;
+  width: min(1600px, 100%);
+}
+
+.overlay-card {
+  backdrop-filter: none;
+  background: transparent;
+  border: none;
+  border-radius: 18px;
+  padding: 32px 36px;;
+  max-width: 1600px;
+}
+
+.overlay-heading {
+  margin: 0 0 12px;
+  font-size: clamp(50px, 6vw, 72px);
+  font-weight: 1000;
+  color: #ffffff;
+  text-align: left;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.overlay-sub {
+  margin: 0 0 18px;
+  font-size: clamp(16px, 2vw, 20px);
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.overlay-divider {
+  width: 800px;
+  height: 3px;
+  background: #911f1f;
+  margin: 0 0 20px;
+}
+
+.overlay-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.overlay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 150px;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0px;
+  padding: 12px 14px;
+  font-weight: 3000;
+  font-size: 24px;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.overlay-btn .arrow {
+  display: inline-block;
+  transform: rotateZ(-30deg);
+  transition: transform 0.25s ease;
+  font-weight: 5000;
+}
+
+.overlay-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.9);
+}
+
+.overlay-btn:hover .arrow {
+  transform: rotateZ(0deg);
+}
+
+.carousel-control {
+  position: absolute;
+  top: 70%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  color: #0c243c;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-control:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control.prev {
+  left: 16px;
+}
+
+.carousel-control.next {
+  right: 16px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dot.is-active {
+  background: #fff;
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 640px) {
+  .carousel-shell {
+    height: 250px;
+  }
+
+  .carousel-overlay {
+    width: 94%;
+  }
+
+  .overlay-btn {
+    max-width: 100%;
+  }
+
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .carousel-control.prev {
+    left: 10px;
+  }
+
+  .carousel-control.next {
+    right: 10px;
+  }
+
+  .carousel-caption {
+    padding: 20px 12px;
+    font-size: 14px;
+  }
+}
