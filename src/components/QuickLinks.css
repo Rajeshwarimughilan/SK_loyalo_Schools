@@ -1,0 +1,40 @@
+.quick-links-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #06407a;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.links-container {
+  display: flex;
+  gap: 40px;
+}
+
+.link-item {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.link-item:hover {
+  color: #959faa;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icon {
+  color: #ffffff;
+  font-size: 20px;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  color: #007bff;
+}

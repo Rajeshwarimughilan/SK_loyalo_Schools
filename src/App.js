@@ -12,14 +12,17 @@ import Achievements from './pages/Achievements';
 import ClubsCells from './pages/ClubsCells';
 import Announcements from './pages/Announcements';
 import Hostel from './pages/Hostel';
+import QuickLinks from './components/QuickLinks';
 
 function App() {
   return (
     <Router>
       <div className="app-shell">
-        <AdmissionBanner />
+        <QuickLinks />
         <NavBar />
+        <AdmissionBanner />
         <FloatingCtas />
+        
         <main className="page">
           <Routes>
             <Route path="/" element={<Home />} />
