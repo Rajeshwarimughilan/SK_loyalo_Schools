@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
@@ -7,134 +7,166 @@ const menuLinks = [
     label: 'ABOUT',
     submenu: [
       { 
-        label: 'School Philosophy', 
+        label: 'School Overview', 
         to: '/about',
         image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop'
       },
       { 
-        label: 'Leadership Vision', 
+        label: 'Facilities', 
+        to: '/about',
+        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'School Crest & Motto', 
+        to: '/about',
+        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'Prayer', 
         to: '/about',
         image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop'
       },
       { 
-        label: 'Curriculum Standards', 
+        label: 'Management', 
+        to: '/about',
+        image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop'
+      },
+
+      { 
+        label: 'Awards and Recognitions', 
         to: '/about',
         image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop'
       },
     ],
   },
-  {
-    label: 'ACADEMICS',
-    submenu: [
-      { 
-        label: 'Subjects', 
-        to: '/subjects-activities',
-        image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop'
-      },
-      { 
-        label: 'Academic Resources', 
-        to: '/subjects-activities',
-        image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop'
-      },
-      { 
-        label: 'Curriculum Overview', 
-        to: '/about',
-        image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&h=600&fit=crop'
-      },
-    ],
-  },
+  
   {
     label: 'STUDENT LIFE',
     submenu: [
       { 
-        label: 'Activities', 
+        label: 'Academics', 
         to: '/subjects-activities',
         image: 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&h=600&fit=crop'
       },
       { 
-        label: 'Clubs & Cells', 
+        label: 'Event', 
         to: '/clubs-cells',
         image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop'
       },
       { 
-        label: 'Achievements', 
+        label: 'Food At Loyalo', 
+        to: '/achievements',
+        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'HealthRoom', 
+        to: '/subjects-activities',
+        image: 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'Counselling', 
+        to: '/clubs-cells',
+        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'Global Dimensions', 
+        to: '/achievements',
+        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'Co-curricular Activities', 
+        to: '/clubs-cells',
+        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop'
+      },
+      { 
+        label: 'Student Council', 
         to: '/achievements',
         image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop'
       },
     ],
   },
   {
-    label: 'ATHLETICS',
+    label: 'ADMINISTRATION',
     submenu: [
       { 
-        label: 'Sports Programs', 
+        label: 'Administrators', 
         to: '/subjects-activities',
         image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop'
       },
       { 
-        label: 'Events & Competitions', 
+        label: 'Faculty & Staff', 
         to: '/achievements',
         image: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=600&fit=crop'
       },
-      { 
-        label: 'Facilities', 
-        to: '/hostel',
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop'
-      },
     ],
   },
+
   {
-    label: 'ADMISSIONS',
+    label: 'RESOURCES',
     submenu: [
       { 
-        label: 'Apply Now', 
-        to: '/',
-        image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop'
+        label: 'Books/E-Books', 
+        to: '/resources/books',
+        image: 'https://images.unsplash.com/photo-150784272343-583f20270319?w=800&h=600&fit=crop'
       },
       { 
-        label: 'Book a Visit', 
-        to: '/',
-        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop'
+        label: 'Uniform', 
+        to: '/resources/uniform',
+        image: 'https://images.unsplash.com/photo-1523381140519-541cdc06d037?w=800&h=600&fit=crop'
       },
       { 
-        label: 'FAQs', 
-        to: '/about',
-        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop'
+        label: 'Transport & Bus Routes', 
+        to: '/resources/transport',
+        image: 'https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&h=600&fit=crop'
       },
     ],
   },
+
 ];
 
 function NavBar() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [hoveredSubtopic, setHoveredSubtopic] = useState(null);
+  const closeTimeout = useRef(null);
+  const CLOSE_DELAY = 350;
 
   const handleMouseEnter = (label) => {
-    setActiveDropdown(label);
-    const firstItem = menuLinks.find(m => m.label === label)?.submenu?.[0];
-    if (firstItem) {
-      setHoveredSubtopic(firstItem);
+    // Clear any pending close timeout
+    if (closeTimeout.current) {
+      clearTimeout(closeTimeout.current);
+      closeTimeout.current = null;
     }
+    setActiveDropdown(label);
   };
 
   const handleMouseLeave = () => {
-    setActiveDropdown(null);
-    setHoveredSubtopic(null);
+    // Don't close immediately - allow time to move between trigger and panel
+    closeTimeout.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, CLOSE_DELAY);
   };
 
   const handleDropdownMouseEnter = () => {
-    // Keep dropdown open when mouse is over the mega dropdown
+    // Cancel closing when mouse enters the dropdown area
+    if (closeTimeout.current) {
+      clearTimeout(closeTimeout.current);
+      closeTimeout.current = null;
+    }
   };
 
-  const handleDropdownMouseLeave = () => {
-    // Close dropdown when leaving the mega dropdown area
-    setActiveDropdown(null);
-    setHoveredSubtopic(null);
-  };
+  // Dropdown close is now handled at the nav-shell level to reduce flicker when moving between items
 
   return (
-    <header className="nav-shell">
+    <header 
+      className="nav-shell"
+      onMouseEnter={() => {
+        if (closeTimeout.current) {
+          clearTimeout(closeTimeout.current);
+          closeTimeout.current = null;
+        }
+      }}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="nav-brand">
         <NavLink to="/">
           <span className="nav-logo">Loyalo School</span>
@@ -171,6 +203,7 @@ function NavBar() {
             <button
               className="nav-link dropdown-toggle"
               aria-expanded={activeDropdown === menu.label}
+              onMouseEnter={() => handleMouseEnter(menu.label)}
             >
               {menu.label}
               <span className="dropdown-arrow">▼</span>
@@ -179,17 +212,24 @@ function NavBar() {
             {activeDropdown === menu.label && (
               <div 
                 className="mega-dropdown"
-                onMouseLeave={handleDropdownMouseLeave}
+                onMouseEnter={handleDropdownMouseEnter}
               >
                 <div className="mega-dropdown-content">
                   <div className="mega-dropdown-left">
+                    <img 
+                      src={menu.submenu[0].image} 
+                      alt={menu.label}
+                      className="mega-dropdown-image"
+                    />
+                  </div>
+                  <div className="mega-dropdown-right">
+                    <h3 className="mega-dropdown-heading">{menu.label}</h3>
                     <ul className="mega-menu-list">
                       {menu.submenu.map((item) => (
                         <li key={item.label}>
                           <NavLink
                             to={item.to}
                             className="mega-menu-link"
-                            onMouseEnter={() => setHoveredSubtopic(item)}
                             onClick={() => {
                               setOpen(false);
                               setActiveDropdown(null);
@@ -201,34 +241,33 @@ function NavBar() {
                       ))}
                     </ul>
                   </div>
-                  <div className="mega-dropdown-right">
-                    {hoveredSubtopic && (
-                      <img 
-                        src={hoveredSubtopic.image} 
-                        alt={hoveredSubtopic.label}
-                        className="mega-dropdown-image"
-                      />
-                    )}
-                  </div>
                 </div>
               </div>
             )}
           </div>
         ))}
 
+
         <NavLink
-          to="/announcements"
+          to="/admissions"
           className={({ isActive }) =>
             isActive ? 'nav-link is-active' : 'nav-link'
           }
           onClick={() => setOpen(false)}
         >
-          NEWS
+          ADMISSIONS
         </NavLink>
 
-        <a className="nav-cta" href="#contact" onClick={() => setOpen(false)}>
-          Book a Visit
-        </a>
+        <NavLink
+          to="/fee-structure"
+          className={({ isActive }) =>
+            isActive ? 'nav-link is-active' : 'nav-link'
+          }
+          onClick={() => setOpen(false)}
+        >
+          FEE STRUCTURE
+        </NavLink>
+        
       </nav>
     </header>
   );

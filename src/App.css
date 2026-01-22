@@ -4,6 +4,8 @@
     radial-gradient(circle at 90% 10%, #b3ffec 0, transparent 28%),
     radial-gradient(circle at 30% 90%, #ecf5ff 0, transparent 26%),
     #f9fbff;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .page {

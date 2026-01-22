@@ -2,6 +2,12 @@ import './PageLayout.css';
 import Carousel from '../components/Carousel';
 import Stats from '../components/Stats';
 import Objectives from '../components/Objectives';
+import BriefAbout from '../components/BriefAbout';
+import FullWidthVideo from '../components/FullWidthVideo';
+import LifeAtLoyalo from '../components/LifeAtLoyalo';
+import NoticeBoard from '../components/NoticeBoard';
+import Affiliations from '../components/Affiliations';
+import LatestNews from '../components/LatestNews';
 
 const initiatives = [
   {
@@ -9,7 +15,7 @@ const initiatives = [
     detail: 'Celebrating culture, nutrition, and gratitude together as one school family.',
   },
   {
-    title: 'Senior–Junior Interaction',
+    title: 'Senior-Junior Interaction',
     detail: 'Peer mentorship that builds confidence, empathy, and leadership habits.',
   },
   {
@@ -35,7 +41,7 @@ const pillars = [
 
 const carouselImages = [
   {
-    src: 'https://images.unsplash.com/photo-1427504494785-cdec866c9e13?w=1200&h=400&fit=crop',
+    src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=400&fit=crop',
     alt: 'Student activities',
     caption: 'Vibrant Student Activities',
   },
@@ -57,57 +63,12 @@ function Home() {
       <Carousel images={carouselImages} />
       <Stats />
       <Objectives />
-
-      <div className="section">
-        <div className="section-head">
-          <p className="eyebrow">Holistic, Future-ready School</p>
-          <h1>We build leaders, not Followers.</h1>
-          <p className="lede">
-            At Loyalo, academics and skill development move together. Students learn to think boldly,
-            speak confidently, and lead with heart through purposeful projects and vibrant activities.
-          </p>
-          <div className="hero-actions">
-            <a className="btn primary" href="#announcements">See what&apos;s new</a>
-            <a className="btn ghost" href="#contact">Book a campus visit</a>
-          </div>
-          <div className="hero-meta">
-            <span>Leadership Labs</span>
-            <span>Confidence Coaching</span>
-            <span>Wellness & Sports</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="section">
-        <div className="section-head">
-          <p className="eyebrow">What we stand for</p>
-          <h2>Student-centric, joyful, and ambitious.</h2>
-          <p className="lede">Core values that shape confident learners and empathetic leaders.</p>
-        </div>
-        <div className="card-grid">
-          {pillars.map((item) => (
-            <div key={item.title} className="card">
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="section alt" id="initiatives">
-        <div className="section-head">
-          <p className="eyebrow">Signature experiences</p>
-          <h2>Unique initiatives that build identity.</h2>
-        </div>
-        <div className="card-grid three">
-          {initiatives.map((item) => (
-            <div key={item.title} className="card highlight">
-              <h3>{item.title}</h3>
-              <p>{item.detail}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <BriefAbout />
+      <FullWidthVideo />
+      <LifeAtLoyalo />
+      <NoticeBoard />
+      <Affiliations />
+      <LatestNews />
 
       <div className="section" id="contact">
         <div className="cta-panel">
