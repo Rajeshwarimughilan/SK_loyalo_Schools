@@ -1,0 +1,461 @@
+/* ═══════════════════════════════════════════════
+   Transport & Bus Routes Page — Loyalo School
+═══════════════════════════════════════════════ */
+
+.transport-page { min-height: 100vh; }
+
+/* ── Hero ───────────────────────────────────── */
+.tp-hero {
+  background: linear-gradient(140deg, #0c243c 0%, #0e2a44 55%, #07192e 100%);
+  padding: 88px 24px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.tp-hero-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 22% 48%, rgba(59,130,246,0.16) 0%, transparent 46%),
+    radial-gradient(circle at 78% 22%, rgba(34,197,94,0.1) 0%, transparent 42%),
+    radial-gradient(circle at 50% 82%, rgba(245,158,11,0.09) 0%, transparent 38%);
+  pointer-events: none;
+}
+
+.tp-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.tp-eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  color: #60a5fa;
+  margin: 0 0 14px;
+}
+
+.tp-title {
+  font-size: clamp(38px, 7vw, 68px);
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 18px;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+}
+
+.tp-subtitle {
+  font-size: 17px;
+  color: rgba(255,255,255,0.7);
+  max-width: 620px;
+  margin: 0 auto 30px;
+  line-height: 1.65;
+}
+
+.tp-hero-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.tp-hero-chips span {
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 50px;
+  padding: 9px 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.84);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Bus strip ──────────────────────────────── */
+.tp-bus-strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 10px;
+}
+
+.tp-bus-badge {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 12px;
+  background: rgba(255,255,255,0.04);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--rc);
+  transition: background 0.2s;
+}
+
+.tp-bus-badge:last-child { border-right: none; }
+.tp-bus-badge:hover { background: rgba(255,255,255,0.08); }
+
+/* ── Page Wrap ──────────────────────────────── */
+.tp-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 44px 24px 72px;
+}
+
+/* ── Route Tabs ─────────────────────────────── */
+.tp-route-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.tp-route-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 2px solid rgba(12,36,60,0.1);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5b6b7a;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  font-family: inherit;
+}
+
+.tp-route-tab:hover {
+  border-color: var(--rc);
+  color: var(--rc);
+}
+
+.tp-route-tab.is-active {
+  background: var(--rc);
+  border-color: var(--rc);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+
+.tp-tab-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.tp-tab-id {
+  background: rgba(255,255,255,0.22);
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-size: 11px;
+}
+
+.tp-route-tab:not(.is-active) .tp-tab-id {
+  background: rgba(12,36,60,0.07);
+  color: #0c243c;
+}
+
+/* ── Info Bar ───────────────────────────────── */
+.tp-info-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  background: linear-gradient(135deg, #0c243c, #12305a);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border: 2px solid var(--rc);
+}
+
+.tp-info-item {
+  flex: 1;
+  min-width: 130px;
+  padding: 16px 20px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tp-info-item:last-child { border-right: none; }
+
+.tp-info-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.tp-info-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.tp-info-value.highlight {
+  color: var(--rc);
+  font-size: 15px;
+}
+
+.tp-info-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.tp-info-link:hover { text-decoration: underline; }
+
+/* ── Timeline ───────────────────────────────── */
+.tp-timeline-wrap {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 28px 32px;
+  box-shadow: 0 6px 26px rgba(12,36,60,0.09);
+  border: 1px solid rgba(12,36,60,0.06);
+}
+
+.tp-timeline-heading {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tp-timeline-line-swatch {
+  width: 18px;
+  height: 4px;
+  border-radius: 4px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Timeline track */
+.tp-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-stop {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+/* Connector column */
+.tp-stop-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48px;
+  flex-shrink: 0;
+}
+
+.tp-stop-node {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--rc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.tp-stop.is-terminal .tp-stop-node {
+  width: 36px;
+  height: 36px;
+  background: #0c243c;
+  border: 3px solid var(--rc);
+}
+
+.tp-node-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.tp-node-star {
+  font-size: 14px;
+  color: var(--rc);
+}
+
+.tp-stop-line {
+  flex: 1;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--rc) 0px,
+    var(--rc) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  margin: 3px 0;
+  opacity: 0.45;
+  min-height: 20px;
+}
+
+/* Stop Card */
+.tp-stop-card {
+  flex: 1;
+  background: rgba(12,36,60,0.02);
+  border: 1px solid rgba(12,36,60,0.06);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 0 0 12px 10px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.tp-stop:hover .tp-stop-card {
+  background: rgba(12,36,60,0.04);
+  transform: translateX(3px);
+}
+
+.tp-stop.is-terminal .tp-stop-card {
+  background: rgba(12,36,60,0.04);
+  border-color: var(--rc);
+  border-width: 1.5px;
+}
+
+.tp-stop-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.tp-stop-name {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 3px;
+}
+
+.tp-stop-landmark {
+  font-size: 12px;
+  color: #7a8a9a;
+  margin: 0;
+}
+
+.tp-stop-time {
+  background: var(--rc);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tp-stop.is-terminal .tp-stop-time {
+  background: #0c243c;
+}
+
+.tp-terminal-badge {
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(12,36,60,0.07);
+  color: #0c243c;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+/* ── Policies ───────────────────────────────── */
+.tp-policies-section {
+  margin-top: 52px;
+}
+
+.tp-section-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.tp-section-tag {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  color: #3b82f6;
+  margin: 0 0 8px;
+}
+
+.tp-section-title {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.tp-policies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.tp-policy-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 4px 16px rgba(12,36,60,0.07);
+  border: 1px solid rgba(12,36,60,0.06);
+  transition: transform 0.22s, box-shadow 0.22s;
+}
+
+.tp-policy-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(12,36,60,0.12);
+}
+
+.tp-policy-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.tp-policy-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 5px;
+}
+
+.tp-policy-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5b6b7a;
+  margin: 0;
+}
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  .tp-hero { padding: 60px 20px 0; }
+  .tp-bus-strip { flex-wrap: wrap; }
+  .tp-bus-badge { flex: none; min-width: 45%; }
+  .tp-info-bar { flex-direction: column; }
+  .tp-info-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .tp-info-item:last-child { border-bottom: none; }
+  .tp-timeline-wrap { padding: 20px 16px 24px; }
+}

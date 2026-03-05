@@ -1,0 +1,354 @@
+/* ═══════════════════════════════════════════════
+   Faculty & Staff Page — Loyalo School
+═══════════════════════════════════════════════ */
+
+.faculty-page {
+  min-height: 100vh;
+}
+
+/* ── Hero ───────────────────────────────────── */
+.faculty-hero {
+  background: linear-gradient(140deg, #0c243c 0%, #12305a 55%, #091e2e 100%);
+  padding: 88px 24px 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.faculty-hero-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 55%, rgba(255, 107, 61, 0.16) 0%, transparent 46%),
+    radial-gradient(circle at 85% 20%, rgba(179, 255, 236, 0.12) 0%, transparent 42%),
+    radial-gradient(circle at 50% 88%, rgba(236, 245, 255, 0.07) 0%, transparent 38%);
+  pointer-events: none;
+}
+
+.faculty-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.fac-eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff6b3d;
+  margin: 0 0 14px;
+}
+
+.fac-title {
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 18px;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+}
+
+.fac-subtitle {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.65;
+}
+
+.fac-hero-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.fac-hero-chips span {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  padding: 9px 20px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Filter Bar ─────────────────────────────── */
+.fac-filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(249, 251, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(12, 36, 60, 0.08);
+  padding: 14px 24px;
+}
+
+.fac-filter-inner {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fac-pill {
+  background: #fff;
+  border: 1.5px solid rgba(12, 36, 60, 0.12);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #5b6b7a;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  font-family: inherit;
+}
+
+.fac-pill:hover {
+  border-color: #ff6b3d;
+  color: #ff6b3d;
+  background: rgba(255, 107, 61, 0.05);
+}
+
+.fac-pill.is-active {
+  background: #0c243c;
+  border-color: #0c243c;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(12, 36, 60, 0.3);
+}
+
+/* ── Grid ───────────────────────────────────── */
+.fac-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+
+.fac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+  transition: opacity 0.16s ease;
+}
+
+.fac-grid.is-visible { opacity: 1; }
+.fac-grid.is-hidden  { opacity: 0; }
+
+/* ── Card ───────────────────────────────────── */
+.fac-card {
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  box-shadow: 0 6px 26px rgba(12, 36, 60, 0.09);
+  border: 1px solid rgba(12, 36, 60, 0.06);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.fac-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(12, 36, 60, 0.15);
+}
+
+/* ── Photo Column ───────────────────────────── */
+.fac-photo-col {
+  position: relative;
+  flex-shrink: 0;
+  width: 140px;
+  background: linear-gradient(160deg, #ecf5ff, #ddeeff);
+}
+
+.fac-photo {
+  width: 140px;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 180px;
+}
+
+.fac-dept-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(12, 36, 60, 0.78);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Info Column ────────────────────────────── */
+.fac-info-col {
+  flex: 1;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.fac-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 3px;
+  line-height: 1.2;
+}
+
+.fac-designation {
+  font-size: 13px;
+  color: #ff6b3d;
+  font-weight: 600;
+  margin: 0;
+}
+
+.fac-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.fac-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  line-height: 1.3;
+}
+
+.fac-tag.exp {
+  background: rgba(179, 255, 236, 0.45);
+  color: #0a6b4a;
+}
+
+.fac-tag.qual {
+  background: #ecf5ff;
+  color: #1a3560;
+}
+
+/* ── Expertise ──────────────────────────────── */
+.fac-expertise {
+  background: linear-gradient(135deg, #f8fbff, #f2f7ff);
+  border-radius: 10px;
+  padding: 10px 14px;
+  border-left: 3px solid #ff6b3d;
+}
+
+.fac-expertise-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8899aa;
+  font-weight: 700;
+  margin: 0 0 3px;
+}
+
+.fac-expertise-value {
+  font-size: 13px;
+  color: #0c243c;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Action Buttons ─────────────────────────── */
+.fac-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.fac-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.fac-action-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.fac-action-btn.email {
+  background: #ecf5ff;
+  color: #1a3560;
+  border: 1px solid rgba(26, 53, 96, 0.14);
+}
+.fac-action-btn.email:hover {
+  background: #1a3560;
+  color: #fff;
+}
+
+.fac-action-btn.linkedin {
+  background: #e8f3fd;
+  color: #0a66c2;
+  border: 1px solid rgba(10, 102, 194, 0.15);
+}
+.fac-action-btn.linkedin:hover {
+  background: #0a66c2;
+  color: #fff;
+}
+
+.fac-action-btn.drive {
+  background: rgba(255, 107, 61, 0.08);
+  color: #e14f1d;
+  border: 1px solid rgba(225, 79, 29, 0.15);
+}
+.fac-action-btn.drive:hover {
+  background: #e14f1d;
+  color: #fff;
+}
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 900px) {
+  .fac-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .faculty-hero {
+    padding: 60px 20px 50px;
+  }
+
+  .fac-card {
+    flex-direction: column;
+  }
+
+  .fac-photo-col {
+    width: 100%;
+    height: 200px;
+  }
+
+  .fac-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    min-height: unset;
+  }
+
+  .fac-dept-tag {
+    bottom: 12px;
+  }
+}
