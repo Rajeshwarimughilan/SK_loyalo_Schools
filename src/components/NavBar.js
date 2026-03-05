@@ -90,12 +90,12 @@ const menuLinks = [
     submenu: [
       { 
         label: 'Administrators', 
-        to: '/subjects-activities',
+        to: '/administrators',
         image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop'
       },
       { 
         label: 'Faculty & Staff', 
-        to: '/achievements',
+        to: '/faculty',
         image: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=600&fit=crop'
       },
     ],
@@ -247,6 +247,26 @@ function NavBar() {
           </div>
         ))}
 
+
+        <NavLink
+          to="/gallery"
+          className={({ isActive }) =>
+            isActive ? 'nav-link is-active' : 'nav-link'
+          }
+          onClick={() => setOpen(false)}
+        >
+          GALLERY
+        </NavLink>
+
+        <NavLink
+          to="/alumni"
+          className={({ isActive }) =>
+            isActive ? 'nav-link is-active' : 'nav-link'
+          }
+          onClick={() => setOpen(false)}
+        >
+          ALUMNI
+        </NavLink>
 
         <NavLink
           to="/admissions"

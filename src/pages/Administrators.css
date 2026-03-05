@@ -1,0 +1,495 @@
+/* ═══════════════════════════════════════════════
+   Administrators Page — Loyalo School
+═══════════════════════════════════════════════ */
+
+.admin-page {
+  min-height: 100vh;
+}
+
+/* ── Hero ───────────────────────────────────── */
+.admin-hero {
+  background: linear-gradient(140deg, #0c243c 0%, #0e1f38 55%, #07192a 100%);
+  padding: 88px 24px 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-hero-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 40%, rgba(255, 209, 102, 0.14) 0%, transparent 46%),
+    radial-gradient(circle at 80% 25%, rgba(179, 255, 236, 0.1) 0%, transparent 42%),
+    radial-gradient(circle at 50% 85%, rgba(255, 107, 61, 0.08) 0%, transparent 38%);
+  pointer-events: none;
+}
+
+.admin-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.adm-eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffd166;
+  margin: 0 0 14px;
+}
+
+.adm-title {
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 18px;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+}
+
+.adm-subtitle {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.65;
+}
+
+.adm-hero-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.adm-hero-chips span {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50px;
+  padding: 9px 20px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.83);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Section Wrapper ────────────────────────── */
+.adm-section-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 24px 16px;
+}
+
+.adm-staff-section {
+  padding-top: 44px;
+  padding-bottom: 64px;
+}
+
+.adm-section-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.adm-section-tag {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  color: #e14f1d;
+  margin: 0 0 8px;
+}
+
+.adm-section-title {
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+}
+
+.adm-section-sub {
+  color: #5b6b7a;
+  font-size: 16px;
+  line-height: 1.67;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ════════════════════════════════
+   LEADERSHIP CARDS
+════════════════════════════════ */
+.leadership-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.leader-card {
+  background: #fff;
+  border-radius: 24px;
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 34px rgba(12, 36, 60, 0.1);
+  border: 1px solid rgba(12, 36, 60, 0.06);
+  position: relative;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.leader-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #ffd166 0%, #ff6b3d 100%);
+  border-radius: 4px 0 0 4px;
+}
+
+.leader-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 54px rgba(12, 36, 60, 0.16);
+}
+
+/* ── Leader Photo ───────────────────────────── */
+.leader-photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 180px;
+}
+
+.leader-photo {
+  width: 180px;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.leader-photo-accent {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 70%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Leader Body ────────────────────────────── */
+.leader-body {
+  flex: 1;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.leader-role-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #ffd166, #ff9f44);
+  color: #5a2d00;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+
+.leader-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 10px;
+}
+
+.leader-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.leader-chip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+  line-height: 1.3;
+}
+
+.leader-chip.qual {
+  background: #ecf5ff;
+  color: #1a3560;
+}
+
+.leader-chip.exp {
+  background: rgba(179, 255, 236, 0.45);
+  color: #0a5f42;
+}
+
+/* ── Message ────────────────────────────────── */
+.leader-message {
+  background: linear-gradient(135deg, #fffbf5, #fff8ef);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 0;
+  border-left: 3px solid #ffd166;
+  flex: 1;
+  position: relative;
+}
+
+.leader-quote-mark {
+  font-size: 56px;
+  font-family: Georgia, serif;
+  color: #ffd166;
+  line-height: 0.4;
+  display: block;
+  margin-bottom: 6px;
+  opacity: 0.45;
+}
+
+.leader-message p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #4a5568;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ── Contacts ───────────────────────────────── */
+.leader-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leader-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #445566;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.18s;
+  min-width: 0;
+}
+
+.leader-contact-item:hover {
+  color: #ff6b3d;
+}
+
+.leader-contact-item.linkedin-link {
+  color: #0a66c2;
+}
+
+.leader-contact-item.linkedin-link:hover {
+  color: #0855a3;
+}
+
+.leader-contact-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lc-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════
+   ADMIN STAFF CARDS
+════════════════════════════════ */
+.admin-staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.staff-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(12, 36, 60, 0.09);
+  border: 1px solid rgba(12, 36, 60, 0.06);
+  transition: transform 0.26s ease, box-shadow 0.26s ease;
+}
+
+.staff-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(12, 36, 60, 0.15);
+}
+
+.staff-card-top {
+  background: linear-gradient(135deg, #0c243c 0%, #153550 100%);
+  padding: 28px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.staff-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.staff-dept-ring {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 209, 102, 0.35);
+  pointer-events: none;
+}
+
+.staff-dept-label {
+  margin-top: 10px;
+  background: rgba(255, 209, 102, 0.18);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  color: #ffd166;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.staff-card-body {
+  padding: 20px 22px 22px;
+}
+
+.staff-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0c243c;
+  margin: 0 0 4px;
+  text-align: center;
+}
+
+.staff-role {
+  font-size: 13px;
+  color: #ff6b3d;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+.staff-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.staff-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #5b6b7a;
+  line-height: 1.4;
+}
+
+.staff-detail-icon {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.staff-contacts {
+  display: flex;
+  gap: 8px;
+}
+
+.staff-contact-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  background: #f2f7ff;
+  color: #1a3560;
+  border: 1px solid rgba(26, 53, 96, 0.12);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.staff-contact-btn:hover {
+  background: #0c243c;
+  color: #fff;
+  border-color: #0c243c;
+}
+
+.staff-contact-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 900px) {
+  .leader-card {
+    flex-direction: column;
+  }
+
+  .leader-photo-wrap {
+    width: 100%;
+    height: 220px;
+  }
+
+  .leader-photo {
+    width: 100%;
+    height: 220px;
+    min-height: unset;
+  }
+
+  .leader-photo-accent {
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 50%
+    );
+  }
+
+  .leader-body {
+    padding: 22px 24px 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-hero {
+    padding: 60px 20px 50px;
+  }
+
+  .admin-staff-grid {
+    grid-template-columns: 1fr;
+  }
+}

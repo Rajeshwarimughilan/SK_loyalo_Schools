@@ -8,10 +8,16 @@ import Home from './pages/Home';
 import About from './pages/About';
 import SubjectsActivities from './pages/SubjectsActivities';
 import Gallery from './pages/Gallery';
+import Alumni from './pages/Alumni';
+import Faculty from './pages/Faculty';
+import Administrators from './pages/Administrators';
 import Achievements from './pages/Achievements';
 import ClubsCells from './pages/ClubsCells';
 import Announcements from './pages/Announcements';
 import Hostel from './pages/Hostel';
+import Books from './pages/Books';
+import Transport from './pages/Transport';
+import Uniform from './pages/Uniform';
 import QuickLinks from './components/QuickLinks';
 
 function App() {
@@ -29,10 +35,16 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/subjects-activities" element={<SubjectsActivities />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/alumni" element={<Alumni />} />
+            <Route path="/faculty" element={<Faculty />} />
+            <Route path="/administrators" element={<Administrators />} />
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/clubs-cells" element={<ClubsCells />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/hostel" element={<Hostel />} />
+            <Route path="/resources/books" element={<Books />} />
+            <Route path="/resources/transport" element={<Transport />} />
+            <Route path="/resources/uniform" element={<Uniform />} />
           </Routes>
         </main>
         <Footer />
