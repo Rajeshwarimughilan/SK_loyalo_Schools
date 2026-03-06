@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import AdmissionBanner from './components/AdmissionBanner';
 import NavBar from './components/NavBar';
@@ -6,15 +6,17 @@ import Footer from './components/Footer';
 import FloatingCtas from './components/FloatingCtas';
 import Home from './pages/Home';
 import About from './pages/About';
-import SubjectsActivities from './pages/SubjectsActivities';
+import Academics from './pages/Academics';
 import Gallery from './pages/Gallery';
 import Alumni from './pages/Alumni';
 import Faculty from './pages/Faculty';
 import Administrators from './pages/Administrators';
-import Achievements from './pages/Achievements';
-import ClubsCells from './pages/ClubsCells';
+import FoodAtLoyalo from './pages/FoodAtLoyalo';
+import Events from './pages/Events';
 import Announcements from './pages/Announcements';
 import Hostel from './pages/Hostel';
+import HealthRoom from './pages/HealthRoom';
+import Counselling from './pages/Counselling';
 import Books from './pages/Books';
 import Transport from './pages/Transport';
 import Uniform from './pages/Uniform';
@@ -33,13 +35,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/subjects-activities" element={<SubjectsActivities />} />
+            <Route path="/academics" element={<Academics />} />
+            <Route path="/subjects-activities" element={<Navigate to="/academics" replace />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/alumni" element={<Alumni />} />
             <Route path="/faculty" element={<Faculty />} />
             <Route path="/administrators" element={<Administrators />} />
-            <Route path="/achievements" element={<Achievements />} />
-            <Route path="/clubs-cells" element={<ClubsCells />} />
+            <Route path="/food-at-loyalo" element={<FoodAtLoyalo />} />
+            <Route path="/achievements" element={<Navigate to="/food-at-loyalo" replace />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/health-room" element={<HealthRoom />} />
+            <Route path="/counselling" element={<Counselling />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/hostel" element={<Hostel />} />
             <Route path="/resources/books" element={<Books />} />

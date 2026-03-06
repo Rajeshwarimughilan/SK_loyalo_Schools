@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './NoticeBoard.css';
 import { FaCalendarAlt, FaBullhorn, FaChevronLeft, FaChevronRight, FaClock } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const upcomingEvents = [
   {
@@ -170,7 +171,7 @@ function NoticeBoard() {
             )}
           </div>
 
-          <button className="full-calendar-btn">View Full Calendar</button>
+          <Link to="/events" className="full-calendar-btn">View Full Calendar</Link>
         </div>
 
         <div className="notice-board">

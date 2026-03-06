@@ -19,12 +19,11 @@ const menuLinks = [
     label: 'STUDENT LIFE',
     submenu: [
       { label: 'Academics', to: '/subjects-activities' },
-      { label: 'Event', to: '/clubs-cells' },
-      { label: 'Food At Loyalo', to: '/achievements' },
-      { label: 'HealthRoom', to: '/subjects-activities' },
-      { label: 'Counselling', to: '/clubs-cells' },
-      { label: 'Global Dimensions', to: '/achievements' },
-      { label: 'Co-curricular Activities', to: '/clubs-cells' },
+      { label: 'Event', to: '/events' },
+      { label: 'Food At Loyalo', to: '/food-at-loyalo' },
+      { label: 'HealthRoom', to: '/health-room' },
+      { label: 'Counselling', to: '/counselling' },
+      { label: 'Co-curricular Activities', to: '/events' },
       { label: 'Student Council', to: '/achievements' },
     ],
   },
@@ -52,7 +51,7 @@ function NavBar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const closeTimeout = useRef(null);
   const CLOSE_DELAY = 350;
-
+  
   const handleMouseEnter = (label) => {
     // Clear any pending close timeout
     if (closeTimeout.current) {
