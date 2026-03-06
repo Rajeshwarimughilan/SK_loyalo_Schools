@@ -10,11 +10,13 @@
   --radius: 18px;
   --shadow-soft: 0 12px 32px rgba(12, 36, 60, 0.12);
   --shadow-strong: 0 20px 50px rgba(12, 36, 60, 0.18);
+  --home-section-space: clamp(44px, 7vw, 80px);
+  --home-gutter: clamp(16px, 2.5vw, 24px);
 }
 
 .page-shell {
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 0 var(--home-gutter) 60px;
 }
 
 .hero {

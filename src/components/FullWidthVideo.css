@@ -1,8 +1,8 @@
 .fullwidth-video-section {
   position: relative;
-  width: calc(100% + 40px);
+  width: calc(100% + (var(--home-gutter, 20px) * 2));
   height: 70vh;
-  margin: 0 -20px;
+  margin-inline: calc(var(--home-gutter, 20px) * -1);
   overflow: hidden;
   border-radius: 0;
 }
