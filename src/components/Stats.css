@@ -2,8 +2,8 @@
   background: linear-gradient(135deg, rgba(12, 36, 60, 0.95), rgba(18, 54, 90, 0.92));
   padding: 48px 0;
   position: relative;
-  width: calc(100% + 40px);
-  margin: 0 -20px 0 -20px;
+  width: calc(100% + (var(--home-gutter, 20px) * 2));
+  margin-inline: calc(var(--home-gutter, 20px) * -1);
 }
 
 .stats-grid {
