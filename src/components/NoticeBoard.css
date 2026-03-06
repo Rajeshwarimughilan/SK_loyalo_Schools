@@ -180,6 +180,8 @@
   padding: 10px 14px;
   background: linear-gradient(150deg, var(--accent), #e75828);
   color: #ffffff;
+  text-decoration: none;
+  display: inline-block;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
