@@ -1,5 +1,4 @@
 import './LifeAtLoyalo.css';
-import geometricOverlay from '../ReferenceImages/geo.svg';
 
 const lifeCards = [
   {
@@ -53,6 +52,8 @@ const lifeCards = [
 ];
 
 function LifeAtLoyalo() {
+  const geometricOverlay = '/ReferenceImages/geometricoverlay.avif';
+
   return (
     <section className="life-at-loyalo-section">
       <div className="section-head">

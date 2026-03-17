@@ -1,38 +1,35 @@
 import './Affiliations.css';
-import BharatScoutsLogo from '../ReferenceImages/BharatScouts.jpg';
-import InteractLogo from '../ReferenceImages/attachment_126730945.png';
-import CorpsLogo from '../ReferenceImages/attachment_125909872.jpg';
 
 const affiliations = [
   {
     id: 1,
     name: 'Bharat Scouts and Guides',
-    logo: BharatScoutsLogo,
+    logo: '/ReferenceImages/BharatScouts.jpg',
   },
   {
     id: 2,
     name: 'Interact Club',
-    logo: InteractLogo,
+    logo: '/ReferenceImages/attachment_126730945.png',
   },
   {
     id: 3,
     name: 'National Cadet Corps',
-    logo: CorpsLogo,
+    logo: '/ReferenceImages/attachment_125909872.jpg',
   },
   {
     id: 4,
     name: 'RSP',
-    logo: InteractLogo,
+    logo: '/ReferenceImages/attachment_126730945.png',
   },
   {
     id: 5,
     name: 'Cambridge International School',
-    logo: CorpsLogo,
+    logo: '/ReferenceImages/attachment_125909872.jpg',
   },
   {
     id: 6,
     name: 'International Baccalaureate',
-    logo: InteractLogo,
+    logo: '/ReferenceImages/attachment_126730945.png',
   },
 ];
 
