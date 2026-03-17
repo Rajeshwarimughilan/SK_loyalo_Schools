@@ -9,36 +9,6 @@ import NoticeBoard from '../components/NoticeBoard';
 import Affiliations from '../components/Affiliations';
 import LatestNews from '../components/LatestNews';
 
-const initiatives = [
-  {
-    title: 'Full Moon Day Traditional Lunch',
-    detail: 'Celebrating culture, nutrition, and gratitude together as one school family.',
-  },
-  {
-    title: 'Senior-Junior Interaction',
-    detail: 'Peer mentorship that builds confidence, empathy, and leadership habits.',
-  },
-  {
-    title: 'Self-Organizing Clubs & Cells',
-    detail: 'Student-led teams that design activities, events, and service projects.',
-  },
-];
-
-const pillars = [
-  {
-    title: 'Leadership-first mindset',
-    body: 'We grow decision-makers who communicate clearly, collaborate openly, and act with integrity.',
-  },
-  {
-    title: 'Balanced academics',
-    body: 'Core subjects stay rigorous while skill-building, wellness, and creativity share equal spotlight.',
-  },
-  {
-    title: 'Future skills',
-    body: 'Confidence, communication, design thinking, and digital fluency prepare students for tomorrow.',
-  },
-];
-
 const carouselImages = [
   {
     src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=400&fit=crop',

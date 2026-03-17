@@ -36,10 +36,10 @@ function Footer() {
             </div>
 
             <div className="social-icons">
-              <a href="#" aria-label="Facebook"><span>f</span></a>
-              <a href="#" aria-label="Twitter"><span>𝕏</span></a>
-              <a href="#" aria-label="LinkedIn"><span>in</span></a>
-              <a href="#" aria-label="Instagram"><span>📷</span></a>
+              <a href="/" aria-label="Facebook"><span>f</span></a>
+              <a href="/" aria-label="Twitter"><span>𝕏</span></a>
+              <a href="/" aria-label="LinkedIn"><span>in</span></a>
+              <a href="/" aria-label="Instagram"><span>📷</span></a>
             </div>
           </div>
 
@@ -48,43 +48,43 @@ function Footer() {
             <div className="footer-column">
               <h4>Academics</h4>
               <ul>
-                <li><a href="#">CBSE</a></li>
-                <li><a href="#">Cambridge</a></li>
-                <li><a href="#">IB Diploma Programme</a></li>
-                <li><a href="#">NIOS</a></li>
-                <li><a href="#">Montessori</a></li>
-                <li><a href="#">Kindergarten</a></li>
-                <li><a href="#">Special Education</a></li>
+                <li><a href="/">CBSE</a></li>
+                <li><a href="/">Cambridge</a></li>
+                <li><a href="/">IB Diploma Programme</a></li>
+                <li><a href="/">NIOS</a></li>
+                <li><a href="/">Montessori</a></li>
+                <li><a href="/">Kindergarten</a></li>
+                <li><a href="/">Special Education</a></li>
               </ul>
             </div>
 
             <div className="footer-column">
               <h4>Resources</h4>
               <ul>
-                <li><a href="#">Omegazine</a></li>
-                <li><a href="#">Fee Payment</a></li>
-                <li><a href="#">Transport Bus Routes</a></li>
-                <li><a href="#">Uniforms</a></li>
-                <li><a href="#">FAQ</a></li>
+                <li><a href="/">Omegazine</a></li>
+                <li><a href="/">Fee Payment</a></li>
+                <li><a href="/">Transport Bus Routes</a></li>
+                <li><a href="/">Uniforms</a></li>
+                <li><a href="/">FAQ</a></li>
               </ul>
             </div>
 
             <div className="footer-column">
               <h4>Info</h4>
               <ul>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="/">Careers</a></li>
+                <li><a href="/">Privacy Policy</a></li>
+                <li><a href="/">Contact Us</a></li>
               </ul>
             </div>
 
             <div className="footer-column">
               <h4>MCB Login</h4>
               <ul>
-                <li><a href="#">For Students</a></li>
-                <li><a href="#">For Parents</a></li>
-                <li><a href="#">For Alumni</a></li>
-                <li><a href="#">For Staffs</a></li>
+                <li><a href="/">For Students</a></li>
+                <li><a href="/">For Parents</a></li>
+                <li><a href="/">For Alumni</a></li>
+                <li><a href="/">For Staffs</a></li>
               </ul>
             </div>
           </div>

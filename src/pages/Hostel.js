@@ -13,12 +13,6 @@ const timetable = [
   'Quiet hours and lights-out routine to ensure rest.',
 ];
 
-const food = [
-  'Balanced weekly menu with whole foods and hydration breaks.',
-  'Full Moon Day traditional lunch celebrating culture and community.',
-  'Dietary accommodations recorded and monitored.',
-];
-
 function Hostel() {
   return (
     <section className="page-shell" id="hostel">
