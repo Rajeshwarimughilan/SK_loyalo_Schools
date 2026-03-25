@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import './PageLayout.css';
+import { publicApi } from '../api/public';
 
-const notices = [
+const fallbackNotices = [
   {
     title: 'Upcoming events',
     details: 'Leadership week, science fair submissions, and inter-house sports trials.',
@@ -16,6 +18,27 @@ const notices = [
 ];
 
 function Announcements() {
+  const [notices, setNotices] = useState(fallbackNotices);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getNotices({ type: 'NOTICE', page: 1, pageSize: 12 }).then((response) => {
+      if (!mounted) return;
+      const mapped = (response?.data || []).map((item) => ({
+        title: item.title,
+        details: item.summary,
+      }));
+      if (mapped.length) setNotices(mapped);
+    }).catch(() => {
+      if (!mounted) return;
+      setNotices(fallbackNotices);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <section className="page-shell" id="announcements">
       <div className="section">

@@ -1,0 +1,160 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id                String   @id @default(cuid())
+  schoolName        String
+  logoUrl           String?
+  contactPhone      String?
+  contactEmail      String?
+  address           String?
+  socialFacebook    String?
+  socialInstagram   String?
+  socialLinkedin    String?
+  socialYoutube     String?
+  footerTagline     String?
+  updatedAt         DateTime @updatedAt
+}
+
+model MenuSection {
+  id        String     @id @default(cuid())
+  label     String
+  sortOrder Int        @default(0)
+  items     MenuItem[]
+}
+
+model MenuItem {
+  id            String      @id @default(cuid())
+  label         String
+  href          String
+  sortOrder     Int         @default(0)
+  menuSectionId String
+  menuSection   MenuSection @relation(fields: [menuSectionId], references: [id], onDelete: Cascade)
+}
+
+model HeroSlide {
+  id         String        @id @default(cuid())
+  title      String
+  subtitle   String?
+  imageUrl   String
+  ctaLabel   String?
+  ctaLink    String?
+  sortOrder  Int           @default(0)
+  status     String        @default("PUBLISHED")
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model AboutContent {
+  id                 String   @id @default(cuid())
+  shortTitle         String
+  shortDescription   String
+  longTitle          String
+  longDescription    String
+  learningApproach   String
+  videoUrl           String?
+  videoPosterUrl     String?
+  curriculumStandards String
+  teachingMethods    String
+  updatedAt          DateTime @updatedAt
+}
+
+model Program {
+  id          String        @id @default(cuid())
+  title       String
+  category    String
+  description String
+  duration    String?
+  imageUrl    String?
+  status      String        @default("PUBLISHED")
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model FacultyMember {
+  id            String        @id @default(cuid())
+  name          String
+  designation   String
+  department    String
+  expertise     String?
+  qualification String?
+  experience    String?
+  email         String?
+  linkedinUrl   String?
+  driveUrl      String?
+  photoUrl      String?
+  bio           String?
+  status        String        @default("PUBLISHED")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model GalleryItem {
+  id          String        @id @default(cuid())
+  title       String
+  category    String
+  description String?
+  mediaUrl    String
+  mediaType   String        @default("image")
+  status      String        @default("PUBLISHED")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Notice {
+  id          String        @id @default(cuid())
+  title       String
+  summary     String
+  content     String?
+  noticeType  String
+  eventDate   DateTime?
+  eventTime   String?
+  category    String?
+  tag         String?
+  externalUrl String?
+  imageUrl    String?
+  status      String        @default("PUBLISHED")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Testimonial {
+  id           String        @id @default(cuid())
+  personName   String
+  roleLabel    String?
+  quote        String
+  photoUrl     String?
+  rating       Int           @default(5)
+  status       String        @default("PUBLISHED")
+  sortOrder    Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model AdmissionInfo {
+  id            String   @id @default(cuid())
+  heading       String
+  description   String
+  processSteps  String
+  requirements  String
+  ctaLabel      String?
+  ctaLink       String?
+  updatedAt     DateTime @updatedAt
+}

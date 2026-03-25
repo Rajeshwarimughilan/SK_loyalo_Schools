@@ -1,15 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Faculty.css';
-
-const DEPARTMENTS = [
-  'All',
-  'Science',
-  'Mathematics',
-  'Languages',
-  'Social Studies',
-  'Computer Science',
-  'Arts & PE',
-];
+import { publicApi } from '../api/public';
 
 const FACULTY = [
   /* ── Science ────────────────────────────────── */
@@ -192,11 +183,43 @@ const FACULTY = [
 export default function Faculty() {
   const [activeDept, setActiveDept] = useState('All');
   const [visible, setVisible] = useState(true);
+  const [facultyData, setFacultyData] = useState(FACULTY);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getFaculty().then((data) => {
+      if (!mounted) return;
+      if (Array.isArray(data) && data.length > 0) {
+        setFacultyData(data.map((item) => ({
+          id: item.id,
+          name: item.name,
+          photo: item.photoUrl,
+          designation: item.designation,
+          department: item.department,
+          expertise: item.expertise,
+          qualification: item.qualification,
+          experience: item.experience,
+          email: item.email,
+          linkedin: item.linkedinUrl,
+          drive: item.driveUrl,
+        })));
+      }
+    }).finally(() => {
+      if (mounted) setLoading(false);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const filtered =
     activeDept === 'All'
-      ? FACULTY
-      : FACULTY.filter((f) => f.department === activeDept);
+      ? facultyData
+      : facultyData.filter((f) => f.department === activeDept);
+
+  const departments = ['All', ...Array.from(new Set(facultyData.map((item) => item.department)))];
 
   const handleFilter = (dept) => {
     if (dept === activeDept) return;
@@ -220,8 +243,8 @@ export default function Faculty() {
             their full potential.
           </p>
           <div className="fac-hero-chips">
-            <span>🎓 {FACULTY.length} Educators</span>
-            <span>📚 {DEPARTMENTS.length - 1} Departments</span>
+            <span>🎓 {facultyData.length} Educators</span>
+            <span>📚 {Math.max(departments.length - 1, 0)} Departments</span>
             <span>⭐ 250+ Combined Years of Experience</span>
           </div>
         </div>
@@ -230,7 +253,7 @@ export default function Faculty() {
       {/* ── Filter ──────────────────────────────── */}
       <div className="fac-filter-bar">
         <div className="fac-filter-inner">
-          {DEPARTMENTS.map((d) => (
+          {departments.map((d) => (
             <button
               key={d}
               className={`fac-pill${activeDept === d ? ' is-active' : ''}`}
@@ -245,7 +268,7 @@ export default function Faculty() {
       {/* ── Grid ────────────────────────────────── */}
       <div className="fac-wrap">
         <div className={`fac-grid${visible ? ' is-visible' : ' is-hidden'}`}>
-          {filtered.map((person) => (
+          {!loading && filtered.map((person) => (
             <article key={person.id} className="fac-card">
               {/* Photo col */}
               <div className="fac-photo-col">

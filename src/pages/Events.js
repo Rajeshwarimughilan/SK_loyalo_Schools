@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './PageLayout.css';
 import './Events.css';
+import { publicApi } from '../api/public';
 
-const events = [
+const fallbackEvents = [
   {
     id: 1,
     title: 'Parent Orientation for New Admissions',
@@ -122,6 +123,31 @@ function formatDate(dateInput) {
 
 function Events() {
   const [activeStage, setActiveStage] = useState('happening');
+  const [events, setEvents] = useState(fallbackEvents);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getNotices({ type: 'EVENT', page: 1, pageSize: 100 }).then((response) => {
+      if (!mounted) return;
+      const mapped = (response?.data || []).map((item) => ({
+        id: item.id,
+        title: item.title,
+        date: item.eventDate,
+        detail: item.summary,
+        coordinator: item.category || 'Coordinator',
+        contact: item.eventTime || 'TBA',
+        image: item.imageUrl,
+      }));
+      if (mapped.length) setEvents(mapped);
+    }).catch(() => {
+      if (!mounted) return;
+      setEvents(fallbackEvents);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const stageBuckets = useMemo(() => {
     const today = toDateOnly(new Date());
@@ -146,7 +172,7 @@ function Events() {
     expired.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return { happening, upcoming, expired };
-  }, []);
+  }, [events]);
 
   const visibleEvents = stageBuckets[activeStage];
 
@@ -186,8 +212,8 @@ function Events() {
                   <div className="event-contact">
                     <strong>Coordinator:</strong>
                     <span>{event.coordinator}</span>
-                    <strong>Contact:</strong>
-                    <a href={`tel:${event.contact.replace(/\s+/g, '')}`}>{event.contact}</a>
+                    <strong>Schedule:</strong>
+                    <span>{event.contact}</span>
                   </div>
                 </div>
               </div>

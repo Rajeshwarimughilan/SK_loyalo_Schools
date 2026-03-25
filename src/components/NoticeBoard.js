@@ -1,103 +1,40 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import './NoticeBoard.css';
 import { FaCalendarAlt, FaBullhorn, FaChevronLeft, FaChevronRight, FaClock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
-const upcomingEvents = [
-  {
-    id: 1,
-    date: '2026-01-25',
-    title: 'Annual Sports Day',
-    category: 'Campus Event',
-    time: '09:00 AM - 03:00 PM',
-    description: 'Inter-house sports competition featuring track, field, and team games.',
-  },
-  {
-    id: 2,
-    date: '2026-01-28',
-    title: 'Science Exhibition',
-    category: 'Academics',
-    time: '11:00 AM - 01:30 PM',
-    description: 'Student-led prototypes and experiments showcasing practical innovation.',
-  },
-  {
-    id: 3,
-    date: '2026-02-01',
-    title: 'Cultural Festival',
-    category: 'Arts & Culture',
-    time: '04:00 PM - 07:00 PM',
-    description: 'Music, dance, and art performances celebrating diversity and expression.',
-  },
-  {
-    id: 4,
-    date: '2026-02-05',
-    title: 'Parent-Teacher Meet',
-    category: 'Community',
-    time: '10:00 AM - 01:00 PM',
-    description: 'One-on-one interactions focused on progress, goals, and mentoring plans.',
-  },
-  {
-    id: 5,
-    date: '2026-02-10',
-    title: 'Coding Hackathon',
-    category: 'STEM',
-    time: '08:30 AM - 02:30 PM',
-    description: 'Collaborative coding challenge for middle and high school innovators.',
-  },
-  {
-    id: 6,
-    date: '2026-02-15',
-    title: 'Art Workshop',
-    category: 'Creative Lab',
-    time: '01:00 PM - 04:00 PM',
-    description: 'Hands-on session with guest artists exploring mixed-media techniques.',
-  },
-];
-
-const notices = [
-  {
-    id: 1,
-    tag: 'Holiday',
-    date: 'Jan 26',
-    text: 'School will remain closed on Jan 26 for Republic Day celebrations.',
-  },
-  {
-    id: 2,
-    tag: 'Fees',
-    date: 'Jan 31',
-    text: 'Online fee payment portal is live. Please complete payment before Jan 31.',
-  },
-  {
-    id: 3,
-    tag: 'Library',
-    date: 'New',
-    text: 'Fresh book arrivals are now available for borrowing in the library.',
-  },
-  {
-    id: 4,
-    tag: 'Sports',
-    date: 'Mon',
-    text: 'Basketball team tryouts begin Monday at 4 PM in the main court.',
-  },
-  {
-    id: 5,
-    tag: 'Reminder',
-    date: 'Fri',
-    text: 'Submit field trip permission slips by Friday to avoid schedule delays.',
-  },
-  {
-    id: 6,
-    tag: 'Rehearsals',
-    date: 'Next Week',
-    text: 'Annual Day rehearsals start next week. Participants should follow time slots.',
-  },
-];
+import { publicApi } from '../api/public';
 
 function NoticeBoard() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [notices, setNotices] = useState([]);
   const eventsPerPage = 3;
 
-  const sortedEvents = [...upcomingEvents].sort((a, b) => new Date(a.date) - new Date(b.date));
+  useEffect(() => {
+    let mounted = true;
+
+    Promise.all([
+      publicApi.getNotices({ type: 'EVENT', page: 1, pageSize: 20 }),
+      publicApi.getNotices({ type: 'NOTICE', page: 1, pageSize: 20 }),
+    ])
+      .then(([eventsResponse, noticeResponse]) => {
+        if (!mounted) return;
+        setUpcomingEvents(eventsResponse?.data || []);
+        setNotices(noticeResponse?.data || []);
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setUpcomingEvents([]);
+        setNotices([]);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const sortedEvents = [...upcomingEvents].sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
   const displayedEvents = sortedEvents.slice(currentIndex, currentIndex + eventsPerPage);
 
   const handleNext = () => {
@@ -134,7 +71,7 @@ function NoticeBoard() {
 
           <div className="events-list">
             {displayedEvents.map((event) => {
-              const { day, month, weekday } = formatDate(event.date);
+              const { day, month, weekday } = formatDate(event.eventDate);
               return (
                 <article key={event.id} className="event-card">
                   <div className="event-date">
@@ -143,14 +80,14 @@ function NoticeBoard() {
                   </div>
                   <div className="event-details">
                     <div className="event-row">
-                      <span className="event-tag">{event.category}</span>
+                      <span className="event-tag">{event.category || 'Event'}</span>
                       <span className="event-weekday">{weekday}</span>
                     </div>
                     <h4>{event.title}</h4>
-                    <p>{event.description}</p>
+                    <p>{event.summary}</p>
                     <div className="event-time">
                       <FaClock />
-                      <span>{event.time}</span>
+                      <span>{event.eventTime || 'TBA'}</span>
                     </div>
                   </div>
                 </article>
@@ -187,10 +124,10 @@ function NoticeBoard() {
               {[...notices, ...notices].map((notice, index) => (
                 <article key={`${notice.id}-${index}`} className="notice-item">
                   <div className="notice-meta">
-                    <span className="notice-tag">{notice.tag}</span>
-                    <span className="notice-date">{notice.date}</span>
+                    <span className="notice-tag">{notice.tag || 'Notice'}</span>
+                    <span className="notice-date">{notice.eventDate ? new Date(notice.eventDate).toLocaleDateString() : 'New'}</span>
                   </div>
-                  <p>{notice.text}</p>
+                  <p>{notice.summary}</p>
                 </article>
               ))}
             </div>

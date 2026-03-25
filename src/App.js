@@ -21,6 +21,8 @@ import Books from './pages/Books';
 import Transport from './pages/Transport';
 import Uniform from './pages/Uniform';
 import QuickLinks from './components/QuickLinks';
+import Admissions from './pages/Admissions';
+import AdminApp from './admin/AdminApp';
 
 function App() {
   return (
@@ -48,9 +50,11 @@ function App() {
             <Route path="/counselling" element={<Counselling />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/hostel" element={<Hostel />} />
+            <Route path="/admissions" element={<Admissions />} />
             <Route path="/resources/books" element={<Books />} />
             <Route path="/resources/transport" element={<Transport />} />
             <Route path="/resources/uniform" element={<Uniform />} />
+            <Route path="/admin/*" element={<AdminApp />} />
           </Routes>
         </main>
         <Footer />

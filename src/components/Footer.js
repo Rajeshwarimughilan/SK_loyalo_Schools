@@ -1,6 +1,15 @@
 import './Footer.css';
+import { useSite } from '../context/SiteContext';
 
 function Footer() {
+  const { settings } = useSite();
+
+  const schoolName = settings?.schoolName || 'LOYALO SCHOOL';
+  const footerTagline = settings?.footerTagline || 'EXCELLENCE IN EDUCATION';
+  const contactPhone = settings?.contactPhone || '044 6624 1130 / 1117';
+  const address = settings?.address || '79, Omega School Road (Pallavaram Road), Kolapakkam, Kovur Post, Chennai, Tamil Nadu 600128.';
+  const contactEmail = settings?.contactEmail || 'info@loyalo.org';
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -15,31 +24,31 @@ function Footer() {
                 </svg>
               </div>
               <div className="brand-text">
-                <h3>LOYALO SCHOOL</h3>
-                <p className="tagline">EXCELLENCE IN EDUCATION</p>
+                <h3>{schoolName.toUpperCase()}</h3>
+                <p className="tagline">{footerTagline.toUpperCase()}</p>
               </div>
             </div>
             
             <div className="contact-info">
               <div className="contact-item">
                 <span className="contact-icon">📞</span>
-                <span>044 6624 1130 / 1117</span>
+                <span>{contactPhone}</span>
               </div>
               <div className="contact-item">
                 <span className="contact-icon">📍</span>
-                <span>79, Omega School Road (Pallavaram Road), Kolapakkam, Kovur Post, Chennai, Tamil Nadu 600128.</span>
+                <span>{address}</span>
               </div>
               <div className="contact-item">
                 <span className="contact-icon">✉️</span>
-                <span>info@loyalo.org</span>
+                <span>{contactEmail}</span>
               </div>
             </div>
 
             <div className="social-icons">
-              <a href="/" aria-label="Facebook"><span>f</span></a>
-              <a href="/" aria-label="Twitter"><span>𝕏</span></a>
-              <a href="/" aria-label="LinkedIn"><span>in</span></a>
-              <a href="/" aria-label="Instagram"><span>📷</span></a>
+              <a href={settings?.socialFacebook || '/'} aria-label="Facebook"><span>f</span></a>
+              <a href={settings?.socialYoutube || '/'} aria-label="Youtube"><span>▶</span></a>
+              <a href={settings?.socialLinkedin || '/'} aria-label="LinkedIn"><span>in</span></a>
+              <a href={settings?.socialInstagram || '/'} aria-label="Instagram"><span>📷</span></a>
             </div>
           </div>
 

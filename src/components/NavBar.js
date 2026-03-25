@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
+import { useSite } from '../context/SiteContext';
 
-const menuLinks = [
+const defaultMenuLinks = [
   {
     label: 'ABOUT',
     submenu: [
@@ -47,6 +48,7 @@ const menuLinks = [
 ];
 
 function NavBar() {
+  const { settings } = useSite();
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const closeTimeout = useRef(null);
@@ -78,6 +80,9 @@ function NavBar() {
 
   // Dropdown close is now handled at the nav-shell level to reduce flicker when moving between items
 
+  const menuLinks = settings?.menu?.length ? settings.menu : defaultMenuLinks;
+  const schoolName = settings?.schoolName || 'Loyalo School';
+
   return (
     <header 
       className="nav-shell"
@@ -91,7 +96,7 @@ function NavBar() {
     >
       <div className="nav-brand">
         <NavLink to="/">
-          <span className="nav-logo">Loyalo School</span>
+          <span className="nav-logo">{schoolName}</span>
         </NavLink>
       </div>
       <button
@@ -147,7 +152,7 @@ function NavBar() {
                   {menu.submenu.map((item) => (
                     <li key={item.label}>
                       <NavLink
-                        to={item.to}
+                        to={item.to || item.href || '/'}
                         className="dropdown-menu-link"
                         onClick={() => {
                           setOpen(false);

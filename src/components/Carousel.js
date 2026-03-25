@@ -4,6 +4,12 @@ import './Carousel.css';
 function Carousel({ images }) {
   const [current, setCurrent] = useState(0);
 
+  if (!images || images.length === 0) {
+    return null;
+  }
+
+  const activeSlide = images[current];
+
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % images.length);
   };
@@ -33,15 +39,15 @@ function Carousel({ images }) {
       {/* Overlay transparent card with actions */}
       <div className="carousel-overlay">
         <div className="overlay-card">
-          <h2 className="overlay-heading">we nurture confident leaders.</h2>
+          <h2 className="overlay-heading">{activeSlide.caption || 'we nurture confident leaders.'}</h2>
           <h2 className="overlay-heading">We don't create followers</h2>
-          <p className="overlay-sub">Empowering students with values, skills, and confidence to thrive beyond the classroom.</p>
+          <p className="overlay-sub">{activeSlide.subtitle || 'Empowering students with values, skills, and confidence to thrive beyond the classroom.'}</p>
           <div className="overlay-divider"></div>
           <div className="overlay-actions">
-            <button className="overlay-btn">
-              <span className="label">Apply</span>
+            <a className="overlay-btn" href={activeSlide.ctaLink || '/admissions'}>
+              <span className="label">{activeSlide.ctaLabel || 'Apply'}</span>
               <span className="arrow" aria-hidden>→</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

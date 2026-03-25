@@ -1,4 +1,5 @@
 import './PageLayout.css';
+import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Stats from '../components/Stats';
 import Objectives from '../components/Objectives';
@@ -8,8 +9,10 @@ import LifeAtLoyalo from '../components/LifeAtLoyalo';
 import NoticeBoard from '../components/NoticeBoard';
 import Affiliations from '../components/Affiliations';
 import LatestNews from '../components/LatestNews';
+import Testimonials from '../components/Testimonials';
+import { publicApi } from '../api/public';
 
-const carouselImages = [
+const fallbackSlides = [
   {
     src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=400&fit=crop',
     alt: 'Student activities',
@@ -20,14 +23,41 @@ const carouselImages = [
     alt: 'Campus facilities',
     caption: 'World-class Campus Infrastructure',
   },
-  {
-    src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=400&fit=crop',
-    alt: 'Leadership events',
-    caption: 'Leadership & Collaboration',
-  },
 ];
 
 function Home() {
+  const [carouselImages, setCarouselImages] = useState(fallbackSlides);
+  const [admissions, setAdmissions] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    Promise.all([publicApi.getHeroSlides(), publicApi.getAdmissions()])
+      .then(([slides, admissionsInfo]) => {
+        if (!mounted) return;
+
+        setCarouselImages(
+          (slides || []).map((slide) => ({
+            src: slide.imageUrl,
+            alt: slide.title,
+            caption: slide.title,
+            subtitle: slide.subtitle,
+            ctaLabel: slide.ctaLabel,
+            ctaLink: slide.ctaLink,
+          }))
+        );
+        setAdmissions(admissionsInfo);
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setCarouselImages(fallbackSlides);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <section className="page-shell">
       <Carousel images={carouselImages} />
@@ -39,15 +69,16 @@ function Home() {
       <NoticeBoard />
       <Affiliations />
       <LatestNews />
+      <Testimonials />
 
       <div className="section" id="contact">
         <div className="cta-panel">
           <div>
             <p className="eyebrow">Schedule a tour</p>
-            <h2>See how we design learning for the whole child.</h2>
-            <p className="lede">Meet our educators, explore clubs, and experience a day at Loyalo.</p>
+            <h2>{admissions?.heading || 'See how we design learning for the whole child.'}</h2>
+            <p className="lede">{admissions?.description || 'Meet our educators, explore clubs, and experience a day at Loyalo.'}</p>
           </div>
-          <a className="btn primary" href="mailto:hello@loyalo.school">Book a visit</a>
+          <a className="btn primary" href={admissions?.ctaLink || 'mailto:hello@loyalo.school'}>{admissions?.ctaLabel || 'Book a visit'}</a>
         </div>
       </div>
     </section>

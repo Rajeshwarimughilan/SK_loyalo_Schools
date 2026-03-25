@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './Gallery.css';
-
-const CATEGORIES = ['All', 'Events', 'Sports', 'Academics', 'Campus', 'Cultural'];
+import { publicApi } from '../api/public';
 
 const GALLERY_ITEMS = [
   {
@@ -94,11 +93,35 @@ export default function Gallery() {
   const [active, setActive] = useState('All');
   const [lightbox, setLightbox] = useState(null);
   const [visible, setVisible] = useState(true);
+  const [galleryItems, setGalleryItems] = useState(GALLERY_ITEMS);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getGallery().then((items) => {
+      if (!mounted || !Array.isArray(items) || items.length === 0) return;
+      setGalleryItems(items.map((item) => ({
+        id: item.id,
+        src: item.mediaUrl,
+        category: item.category,
+        title: item.title,
+        desc: item.description,
+      })));
+    }).catch(() => {
+      if (!mounted) return;
+      setGalleryItems(GALLERY_ITEMS);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const categories = ['All', ...Array.from(new Set(galleryItems.map((item) => item.category)))];
 
   const filtered =
     active === 'All'
-      ? GALLERY_ITEMS
-      : GALLERY_ITEMS.filter((img) => img.category === active);
+      ? galleryItems
+      : galleryItems.filter((img) => img.category === active);
 
   const closeLightbox = useCallback(() => setLightbox(null), []);
 
@@ -136,8 +159,8 @@ export default function Gallery() {
             A visual journey through campus life, milestones, and the moments that matter most
           </p>
           <div className="gallery-hero-stats">
-            <span>{GALLERY_ITEMS.length}+ Photos</span>
-            <span>{CATEGORIES.length - 1} Categories</span>
+            <span>{galleryItems.length}+ Photos</span>
+            <span>{Math.max(categories.length - 1, 0)} Categories</span>
             <span>Every Memory Captured</span>
           </div>
         </div>
@@ -146,7 +169,7 @@ export default function Gallery() {
       {/* ── Filter Bar ───────────────────────────────── */}
       <div className="gallery-filter-bar">
         <div className="gallery-filter-inner">
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               className={`gallery-pill${active === cat ? ' is-active' : ''}`}
