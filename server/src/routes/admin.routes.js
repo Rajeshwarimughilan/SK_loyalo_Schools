@@ -101,6 +101,92 @@ const moduleMap = {
       status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
     }),
   },
+  transport: {
+    model: prisma.transportInfo,
+    createSchema: z.object({
+      title: z.string().min(1),
+      routeCode: z.string().optional().nullable(),
+      description: z.string().min(1),
+      busNo: z.string().optional().nullable(),
+      driverName: z.string().optional().nullable(),
+      contactPhone: z.string().optional().nullable(),
+      morningPickup: z.string().optional().nullable(),
+      departureTime: z.string().optional().nullable(),
+      stopsJson: z.string().optional().nullable(),
+      sortOrder: z.coerce.number().optional(),
+      status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
+    }),
+  },
+  uniform: {
+    model: prisma.uniformInfo,
+    createSchema: z.object({
+      title: z.string().min(1),
+      category: z.string().optional().nullable(),
+      description: z.string().min(1),
+      details: z.string().optional().nullable(),
+      priceRange: z.string().optional().nullable(),
+      sortOrder: z.coerce.number().optional(),
+      status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
+    }),
+  },
+  ebooks: {
+    model: prisma.ebookInfo,
+    createSchema: z.object({
+      subject: z.string().min(1),
+      title: z.string().min(1),
+      publisher: z.string().optional().nullable(),
+      linkUrl: z.string().optional().nullable(),
+      description: z.string().optional().nullable(),
+      sortOrder: z.coerce.number().optional(),
+      status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
+    }),
+  },
+  administrators: {
+    model: prisma.administrator,
+    createSchema: z.object({
+      name: z.string().min(1),
+      role: z.string().min(1),
+      groupType: z.enum(['LEADERSHIP', 'STAFF']).optional(),
+      department: z.string().optional().nullable(),
+      qualification: z.string().optional().nullable(),
+      experience: z.string().optional().nullable(),
+      email: z.string().email().optional().nullable().or(z.literal('')),
+      phone: z.string().optional().nullable(),
+      linkedinUrl: z.string().optional().nullable(),
+      photoUrl: z.string().optional().nullable(),
+      message: z.string().optional().nullable(),
+      sortOrder: z.coerce.number().optional(),
+      status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
+    }),
+  },
+  alumni: {
+    model: prisma.alumniProfile,
+    createSchema: z.object({
+      name: z.string().min(1),
+      photoUrl: z.string().optional().nullable(),
+      batch: z.string().optional().nullable(),
+      profession: z.string().optional().nullable(),
+      company: z.string().optional().nullable(),
+      location: z.string().optional().nullable(),
+      quote: z.string().optional().nullable(),
+      sortOrder: z.coerce.number().optional(),
+      status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
+    }),
+  },
+  blogs: {
+    model: prisma.blogPost,
+    createSchema: z.object({
+      title: z.string().min(1),
+      excerpt: z.string().optional().nullable(),
+      content: z.string().optional().nullable(),
+      author: z.string().optional().nullable(),
+      imageUrl: z.string().optional().nullable(),
+      externalUrl: z.string().optional().nullable(),
+      publishedAt: z.string().optional().nullable(),
+      sortOrder: z.coerce.number().optional(),
+      status: z.enum(['DRAFT', 'PUBLISHED']).optional(),
+    }),
+  },
 };
 
 const idSchema = z.object({ id: z.string().min(1) });
@@ -123,7 +209,19 @@ router.get('/site-settings', async (req, res, next) => {
 router.put('/site-settings', async (req, res, next) => {
   try {
     const payload = sanitizeObject(req.body);
-    const { menu = [], ...settingsData } = payload;
+    const menu = Array.isArray(payload.menu) ? payload.menu : [];
+    const settingsData = {
+      schoolName: payload.schoolName,
+      logoUrl: payload.logoUrl,
+      contactPhone: payload.contactPhone,
+      contactEmail: payload.contactEmail,
+      address: payload.address,
+      socialFacebook: payload.socialFacebook,
+      socialInstagram: payload.socialInstagram,
+      socialLinkedin: payload.socialLinkedin,
+      socialYoutube: payload.socialYoutube,
+      footerTagline: payload.footerTagline,
+    };
 
     const existing = await prisma.siteSettings.findFirst();
     let settings;

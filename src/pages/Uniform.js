@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import './Uniform.css';
+import { publicApi } from '../api/public';
 
 const UNIFORM_SECTIONS = [
   {
@@ -150,6 +152,23 @@ const PURCHASE = [
 ];
 
 export default function Uniform() {
+  const [dynamicUniforms, setDynamicUniforms] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getUniformInfo().then((data) => {
+      if (!mounted) return;
+      setDynamicUniforms(Array.isArray(data) ? data : []);
+    }).catch(() => {
+      if (!mounted) return;
+      setDynamicUniforms([]);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <div className="uniform-page">
       <div className="uni-hero">
@@ -171,6 +190,28 @@ export default function Uniform() {
       </div>
 
       <div className="uni-wrap">
+        {dynamicUniforms.length > 0 ? (
+          <section className="uni-showcase" aria-label="Dynamic uniform information">
+            <div className="uni-showcase-meta">
+              <article>
+                <h2>Uniform Information</h2>
+                <p>Updated from the admin dashboard.</p>
+              </article>
+            </div>
+            <div className="uni-policies-grid">
+              {dynamicUniforms.map((item) => (
+                <article key={item.id} className="uni-policy-card">
+                  <h3>{item.title}</h3>
+                  {item.category ? <p><strong>{item.category}</strong></p> : null}
+                  <p>{item.description}</p>
+                  {item.details ? <p>{item.details}</p> : null}
+                  {item.priceRange ? <p><strong>{item.priceRange}</strong></p> : null}
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="uni-showcase" aria-label="Uniform quality showcase">
           <figure className="uni-showcase-photo">
             <img

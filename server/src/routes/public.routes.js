@@ -167,4 +167,76 @@ router.get('/dashboard-stats', async (req, res, next) => {
   }
 });
 
+router.get('/transport-info', async (req, res, next) => {
+  try {
+    const items = await prisma.transportInfo.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    });
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/uniform-info', async (req, res, next) => {
+  try {
+    const items = await prisma.uniformInfo.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    });
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/ebooks', async (req, res, next) => {
+  try {
+    const items = await prisma.ebookInfo.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    });
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/administrators', async (req, res, next) => {
+  try {
+    const items = await prisma.administrator.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    });
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/alumni', async (req, res, next) => {
+  try {
+    const items = await prisma.alumniProfile.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    });
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/blogs', async (req, res, next) => {
+  try {
+    const items = await prisma.blogPost.findMany({
+      where: { status: 'PUBLISHED' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    });
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

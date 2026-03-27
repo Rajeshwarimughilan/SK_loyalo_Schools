@@ -158,3 +158,95 @@ model AdmissionInfo {
   ctaLink       String?
   updatedAt     DateTime @updatedAt
 }
+
+model TransportInfo {
+  id            String   @id @default(cuid())
+  title         String
+  routeCode     String?
+  description   String
+  busNo         String?
+  driverName    String?
+  contactPhone  String?
+  morningPickup String?
+  departureTime String?
+  stopsJson     String?
+  status        String   @default("PUBLISHED")
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model UniformInfo {
+  id          String   @id @default(cuid())
+  title       String
+  category    String?
+  description String
+  details     String?
+  priceRange  String?
+  status      String   @default("PUBLISHED")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EbookInfo {
+  id          String   @id @default(cuid())
+  subject     String
+  title       String
+  publisher   String?
+  linkUrl     String?
+  description String?
+  status      String   @default("PUBLISHED")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Administrator {
+  id            String   @id @default(cuid())
+  name          String
+  role          String
+  groupType     String   @default("STAFF")
+  department    String?
+  qualification String?
+  experience    String?
+  email         String?
+  phone         String?
+  linkedinUrl   String?
+  photoUrl      String?
+  message       String?
+  status        String   @default("PUBLISHED")
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model AlumniProfile {
+  id          String   @id @default(cuid())
+  name        String
+  photoUrl    String?
+  batch       String?
+  profession  String?
+  company     String?
+  location    String?
+  quote       String?
+  status      String   @default("PUBLISHED")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  excerpt     String?
+  content     String?
+  author      String?
+  imageUrl    String?
+  externalUrl String?
+  publishedAt String?
+  status      String   @default("PUBLISHED")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

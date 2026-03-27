@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useState } from 'react';
 import './Books.css';
+import { publicApi } from '../api/public';
 
 const SUBJECTS = [
   {
@@ -160,6 +162,32 @@ const STANDARDS = [
 ];
 
 export default function Books() {
+  const [dynamicEbooks, setDynamicEbooks] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getEbooks().then((data) => {
+      if (!mounted) return;
+      setDynamicEbooks(Array.isArray(data) ? data : []);
+    }).catch(() => {
+      if (!mounted) return;
+      setDynamicEbooks([]);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const groupedDynamic = useMemo(() => {
+    return dynamicEbooks.reduce((acc, item) => {
+      const key = item.subject || 'General';
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(item);
+      return acc;
+    }, {});
+  }, [dynamicEbooks]);
+
   return (
     <div className="books-page">
       <div className="books-hero">
@@ -276,6 +304,41 @@ export default function Books() {
         </div>
 
         <div className="bk-digital-section">
+          {dynamicEbooks.length > 0 ? (
+            <div className="bk-resource-table-wrap" style={{ marginBottom: '24px' }}>
+              <h4>Admin Managed E-Books</h4>
+              {Object.entries(groupedDynamic).map(([subject, items]) => (
+                <div key={subject} style={{ marginBottom: '16px' }}>
+                  <h4>{subject}</h4>
+                  <table className="bk-resource-table">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Description</th>
+                        <th>Access</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {items.map((ebook) => (
+                        <tr key={ebook.id}>
+                          <td>{ebook.title}</td>
+                          <td>{ebook.publisher || '-'}</td>
+                          <td>{ebook.description || '-'}</td>
+                          <td>
+                            <a href={ebook.linkUrl || '#'} target="_blank" rel="noopener noreferrer">
+                              Open
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
           <div className="bk-section-header">
             <p className="bk-section-tag">Digital Learning</p>
             <h2 className="bk-section-title">Platforms &amp; Tools</h2>

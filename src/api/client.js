@@ -11,10 +11,17 @@ async function apiRequest(path, options = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers,
-  });
+  let response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      ...options,
+      headers,
+    });
+  } catch (networkError) {
+    const error = new Error(`Unable to reach API server at ${API_BASE}. Make sure backend is running.`);
+    error.cause = networkError;
+    throw error;
+  }
 
   if (response.status === 204) {
     return null;

@@ -80,8 +80,9 @@ function NavBar() {
 
   // Dropdown close is now handled at the nav-shell level to reduce flicker when moving between items
 
-  const menuLinks = settings?.menu?.length ? settings.menu : defaultMenuLinks;
+  const menuLinks = Array.isArray(settings?.menu) && settings.menu.length ? settings.menu : defaultMenuLinks;
   const schoolName = settings?.schoolName || 'Loyalo School';
+  const logoUrl = (settings?.logoUrl || '').trim();
 
   return (
     <header 
@@ -96,7 +97,10 @@ function NavBar() {
     >
       <div className="nav-brand">
         <NavLink to="/">
-          <span className="nav-logo">{schoolName}</span>
+          <div className="nav-brand-inner">
+            {logoUrl ? <img className="nav-logo-image" src={logoUrl} alt={`${schoolName} logo`} /> : null}
+            <span className="nav-logo">{schoolName}</span>
+          </div>
         </NavLink>
       </div>
       <button
@@ -121,7 +125,14 @@ function NavBar() {
           HOME
         </NavLink>
 
-        {menuLinks.map((menu) => (
+        {menuLinks.map((menu) => {
+          const submenuItems = Array.isArray(menu?.submenu)
+            ? menu.submenu
+            : Array.isArray(menu?.items)
+              ? menu.items
+              : [];
+
+          return (
           <div 
             key={menu.label} 
             className="nav-dropdown-container"
@@ -149,7 +160,7 @@ function NavBar() {
                 <ul
                   className="dropdown-menu-list"
                 >
-                  {menu.submenu.map((item) => (
+                  {submenuItems.map((item) => (
                     <li key={item.label}>
                       <NavLink
                         to={item.to || item.href || '/'}
@@ -167,7 +178,8 @@ function NavBar() {
               </div>
             )}
           </div>
-        ))}
+          );
+        })}
 
 
         <NavLink

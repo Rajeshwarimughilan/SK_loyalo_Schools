@@ -17,4 +17,10 @@ export const publicApi = {
   getTestimonials: () => apiRequest('/public/testimonials'),
   getAdmissions: () => apiRequest('/public/admissions'),
   getDashboardStats: () => apiRequest('/public/dashboard-stats'),
+  getTransportInfo: () => apiRequest('/public/transport-info'),
+  getUniformInfo: () => apiRequest('/public/uniform-info'),
+  getEbooks: () => apiRequest('/public/ebooks'),
+  getAdministrators: () => apiRequest('/public/administrators'),
+  getAlumni: () => apiRequest('/public/alumni'),
+  getBlogs: () => apiRequest('/public/blogs'),
 };

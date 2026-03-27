@@ -9,6 +9,7 @@ function Footer() {
   const contactPhone = settings?.contactPhone || '044 6624 1130 / 1117';
   const address = settings?.address || '79, Omega School Road (Pallavaram Road), Kolapakkam, Kovur Post, Chennai, Tamil Nadu 600128.';
   const contactEmail = settings?.contactEmail || 'info@loyalo.org';
+  const logoUrl = (settings?.logoUrl || '').trim();
 
   return (
     <footer className="footer">
@@ -18,10 +19,14 @@ function Footer() {
           <div className="footer-brand">
             <div className="footer-logo">
               <div className="logo-icon">
-                <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
-                  <circle cx="25" cy="25" r="24" stroke="white" strokeWidth="2"/>
-                  <path d="M25 15 L35 25 L25 35 L15 25 Z" fill="white"/>
-                </svg>
+                {logoUrl ? (
+                  <img className="footer-logo-image" src={logoUrl} alt={`${schoolName} logo`} />
+                ) : (
+                  <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                    <circle cx="25" cy="25" r="24" stroke="white" strokeWidth="2"/>
+                    <path d="M25 15 L35 25 L25 35 L15 25 Z" fill="white"/>
+                  </svg>
+                )}
               </div>
               <div className="brand-text">
                 <h3>{schoolName.toUpperCase()}</h3>

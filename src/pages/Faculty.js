@@ -205,6 +205,9 @@ export default function Faculty() {
           drive: item.driveUrl,
         })));
       }
+    }).catch(() => {
+      if (!mounted) return;
+      setFacultyData(FACULTY);
     }).finally(() => {
       if (mounted) setLoading(false);
     });

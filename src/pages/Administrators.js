@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useState } from 'react';
 import './Administrators.css';
+import { publicApi } from '../api/public';
 
 const LEADERSHIP = [
   {
@@ -115,6 +117,58 @@ const ADMIN_STAFF = [
 ];
 
 export default function Administrators() {
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    publicApi.getAdministrators().then((data) => {
+      if (!mounted || !Array.isArray(data)) return;
+      setPeople(data);
+    }).catch(() => {
+      if (!mounted) return;
+      setPeople([]);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const leadershipData = useMemo(() => {
+    if (!people.length) return LEADERSHIP;
+    return people
+      .filter((p) => (p.groupType || '').toUpperCase() === 'LEADERSHIP')
+      .map((p) => ({
+        id: p.id,
+        name: p.name,
+        photo: p.photoUrl || 'https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?w=400&h=400&fit=crop&crop=faces',
+        role: p.role,
+        qualification: p.qualification || 'N/A',
+        experience: p.experience || 'N/A',
+        email: p.email || 'info@loyalo.edu',
+        phone: p.phone || '+91 90001 00000',
+        linkedin: p.linkedinUrl || 'https://linkedin.com',
+        message: p.message || 'Guiding learners with integrity and purpose.',
+      }));
+  }, [people]);
+
+  const staffData = useMemo(() => {
+    if (!people.length) return ADMIN_STAFF;
+    return people
+      .filter((p) => (p.groupType || '').toUpperCase() !== 'LEADERSHIP')
+      .map((p) => ({
+        id: p.id,
+        name: p.name,
+        photo: p.photoUrl || 'https://images.unsplash.com/photo-1542206395-9feb3edaa68d?w=400&h=400&fit=crop&crop=faces',
+        role: p.role,
+        dept: p.department || 'Administration',
+        qualification: p.qualification || 'N/A',
+        experience: p.experience || 'N/A',
+        email: p.email || 'info@loyalo.edu',
+        phone: p.phone || '+91 90001 00000',
+      }));
+  }, [people]);
+
   return (
     <div className="admin-page">
       {/* ── Hero ────────────────────────────────── */}
@@ -128,8 +182,8 @@ export default function Administrators() {
             excellence every single day.
           </p>
           <div className="adm-hero-chips">
-            <span>👤 {LEADERSHIP.length} Senior Leaders</span>
-            <span>🏢 {ADMIN_STAFF.length} Admin Officers</span>
+            <span>👤 {leadershipData.length} Senior Leaders</span>
+            <span>🏢 {staffData.length} Admin Officers</span>
             <span>🌟 Excellence in Governance</span>
           </div>
         </div>
@@ -147,7 +201,7 @@ export default function Administrators() {
         </div>
 
         <div className="leadership-grid">
-          {LEADERSHIP.map((person) => (
+          {leadershipData.map((person) => (
             <article key={person.id} className="leader-card">
               <div className="leader-photo-wrap">
                 <img
@@ -221,7 +275,7 @@ export default function Administrators() {
         </div>
 
         <div className="admin-staff-grid">
-          {ADMIN_STAFF.map((person) => (
+          {staffData.map((person) => (
             <article key={person.id} className="staff-card">
               <div className="staff-card-top">
                 <img

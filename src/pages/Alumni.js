@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import './Alumni.css';
+import { publicApi } from '../api/public';
 
 const ALUMNI = [
   {
@@ -76,6 +78,44 @@ const ALUMNI = [
 ];
 
 export default function Alumni() {
+  const [alumniItems, setAlumniItems] = useState(ALUMNI);
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    Promise.all([publicApi.getAlumni(), publicApi.getBlogs()]).then(([alumniData, blogData]) => {
+      if (!mounted) return;
+
+      if (Array.isArray(alumniData) && alumniData.length > 0) {
+        setAlumniItems(
+          alumniData.map((item) => ({
+            id: item.id,
+            name: item.name,
+            photo: item.photoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
+            batch: item.batch || 'Loyalo Alumni',
+            profession: item.profession || 'Professional',
+            company: item.company || 'Organization',
+            location: item.location || 'India',
+            quote: item.quote || 'Proud to be a Loyaloan.',
+          }))
+        );
+      }
+
+      if (Array.isArray(blogData)) {
+        setBlogs(blogData);
+      }
+    }).catch(() => {
+      if (!mounted) return;
+      setAlumniItems(ALUMNI);
+      setBlogs([]);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <div className="alumni-page">
       {/* ── Hero ─────────────────────────────────────── */}
@@ -110,7 +150,7 @@ export default function Alumni() {
       {/* ── Cards Grid ────────────────────────────── */}
       <div className="alumni-wrap">
         <div className="alumni-grid">
-          {ALUMNI.map((person) => (
+          {alumniItems.map((person) => (
             <article key={person.id} className="alumni-card">
               <div className="alumni-card-top">
                 <div className="alumni-avatar-wrap">
@@ -139,6 +179,34 @@ export default function Alumni() {
           ))}
         </div>
       </div>
+
+      {blogs.length > 0 ? (
+        <div className="alumni-wrap">
+          <div className="alumni-intro-inner">
+            <p className="alumni-section-eyebrow">Read and Explore</p>
+            <h2 className="alumni-section-title">Alumni Blogs</h2>
+          </div>
+          <div className="alumni-grid">
+            {blogs.map((blog) => (
+              <article key={blog.id} className="alumni-card">
+                <div className="alumni-identity">
+                  <h3 className="alumni-name">{blog.title}</h3>
+                  <p className="alumni-role">{blog.author || 'Loyalo Editorial'}</p>
+                  <p className="alumni-company">{blog.publishedAt || 'Recent post'}</p>
+                </div>
+                <blockquote className="alumni-quote">
+                  <p>{blog.excerpt || blog.content || 'Read this story from the Loyalo community.'}</p>
+                </blockquote>
+                {blog.externalUrl ? (
+                  <a href={blog.externalUrl} target="_blank" rel="noopener noreferrer" className="alumni-cta-btn">
+                    Read Blog
+                  </a>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {/* ── CTA Banner ─────────────────────────────── */}
       <div className="alumni-cta-wrap">

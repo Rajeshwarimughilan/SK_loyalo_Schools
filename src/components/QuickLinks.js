@@ -1,5 +1,6 @@
 import './QuickLinks.css';
 import { FaInstagram, FaYoutube, FaLinkedin, FaFacebook } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 import { useSite } from '../context/SiteContext';
 
 
@@ -9,9 +10,10 @@ function QuickLinks(){
     return(
         <div className="quick-links-section">
             <div className="links-container">
-                <a href="#inquire" className="link-item">inquire</a>
-                <a href="#Gallery" className="link-item">Gallery</a>
-                <a href="#Alumni & Blogs" className="link-item">Alumni & Blogs</a>
+                <NavLink to="/admin/login" className="link-item">Admin Login</NavLink>
+                <a href="#contact" className="link-item">Inquire</a>
+                <NavLink to="/gallery" className="link-item">Gallery</NavLink>
+                <NavLink to="/alumni" className="link-item">Alumni & Blogs</NavLink>
             </div>
 
             <div className="social-icons">

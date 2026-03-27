@@ -8,6 +8,7 @@ function Stars({ count }) {
 export default function Testimonials() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -15,6 +16,11 @@ export default function Testimonials() {
       .getTestimonials()
       .then((data) => {
         if (mounted) setItems(data || []);
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        setItems([]);
+        setError(err);
       })
       .finally(() => {
         if (mounted) setLoading(false);
@@ -28,6 +34,8 @@ export default function Testimonials() {
   if (loading) {
     return <section className="section"><p>Loading testimonials...</p></section>;
   }
+
+  if (error) return null;
 
   if (!items.length) return null;
 

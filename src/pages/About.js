@@ -10,6 +10,9 @@ function About() {
     let mounted = true;
     publicApi.getAbout().then((data) => {
       if (mounted) setAbout(data);
+    }).catch(() => {
+      if (!mounted) return;
+      setAbout(null);
     }).finally(() => {
       if (mounted) setLoading(false);
     });

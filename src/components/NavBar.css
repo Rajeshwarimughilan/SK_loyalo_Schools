@@ -30,6 +30,24 @@
   gap: 4px;
 }
 
+.nav-brand a {
+  text-decoration: none;
+}
+
+.nav-brand-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-image {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
 .nav-logo {
   font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
   font-weight: 700;

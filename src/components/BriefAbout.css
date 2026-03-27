@@ -85,6 +85,16 @@
   box-shadow: var(--shadow-soft);
 }
 
+.about-video iframe {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
 @media (max-width: 768px) {
   .brief-about-section {
     grid-template-columns: 1fr;

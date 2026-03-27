@@ -86,6 +86,24 @@
   padding: 48px 24px 80px;
 }
 
+.uni-policies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.uni-policy-card {
+  background: #fff;
+  border: 1px solid rgba(12, 36, 60, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(12, 36, 60, 0.08);
+}
+
+.uni-policy-card h3 {
+  margin: 0 0 8px;
+}
+
 .uni-showcase {
   display: grid;
   grid-template-columns: 1.15fr 1fr;

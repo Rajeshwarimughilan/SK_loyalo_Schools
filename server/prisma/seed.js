@@ -285,12 +285,141 @@ async function seedMediaAndNotices() {
   }
 }
 
+async function seedAdditionalContent() {
+  if ((await prisma.transportInfo.count()) === 0) {
+    await prisma.transportInfo.createMany({
+      data: [
+        {
+          title: 'North Corridor',
+          routeCode: 'R1',
+          description: 'Safe and punctual route covering key landmarks in the north zone.',
+          busNo: 'KL-07-AB-1234',
+          driverName: 'Mr. Rajan P.',
+          contactPhone: '+91 94001 11001',
+          morningPickup: '7:15 AM',
+          departureTime: '3:45 PM',
+          sortOrder: 0,
+        },
+      ],
+    });
+  }
+
+  if ((await prisma.uniformInfo.count()) === 0) {
+    await prisma.uniformInfo.createMany({
+      data: [
+        {
+          title: 'Regular School Uniform',
+          category: 'Daily Wear',
+          description: 'Formal and durable uniform designed for daily classroom use.',
+          details: 'Includes shirt, trousers/skirt, tie, and socks.',
+          priceRange: 'Rs. 60 - Rs. 550',
+          sortOrder: 0,
+        },
+        {
+          title: 'Sports Uniform',
+          category: 'PE and Sports',
+          description: 'Breathable activewear for PE periods and sports events.',
+          details: 'Includes sports t-shirt, track pants/shorts, and socks.',
+          priceRange: 'Rs. 100 - Rs. 480',
+          sortOrder: 1,
+        },
+      ],
+    });
+  }
+
+  if ((await prisma.ebookInfo.count()) === 0) {
+    await prisma.ebookInfo.createMany({
+      data: [
+        {
+          subject: 'Science',
+          title: 'NCERT Science (Gr. 6-12)',
+          publisher: 'NCERT',
+          linkUrl: '#',
+          description: 'Core science reference aligned with curriculum standards.',
+          sortOrder: 0,
+        },
+        {
+          subject: 'Mathematics',
+          title: 'RD Sharma Mathematics',
+          publisher: 'Dhanpat Rai',
+          linkUrl: '#',
+          description: 'Practice-oriented mathematics resource.',
+          sortOrder: 1,
+        },
+      ],
+    });
+  }
+
+  if ((await prisma.administrator.count()) === 0) {
+    await prisma.administrator.createMany({
+      data: [
+        {
+          name: 'Mrs. Leena Augustine',
+          role: 'Principal',
+          groupType: 'LEADERSHIP',
+          department: 'Leadership',
+          qualification: 'M.Ed., M.A. Psychology',
+          experience: '22 Years',
+          email: 'principal@loyalo.edu',
+          phone: '+91 90001 00002',
+          message: 'We nurture every child with academic excellence and character formation.',
+          sortOrder: 0,
+        },
+        {
+          name: 'Mr. Suresh Kumar',
+          role: 'Administrative Officer',
+          groupType: 'STAFF',
+          department: 'Administration',
+          qualification: 'MBA',
+          experience: '14 Years',
+          email: 'admin@loyalo.edu',
+          phone: '+91 90001 00011',
+          sortOrder: 1,
+        },
+      ],
+    });
+  }
+
+  if ((await prisma.alumniProfile.count()) === 0) {
+    await prisma.alumniProfile.createMany({
+      data: [
+        {
+          name: 'Rahul Menon',
+          batch: 'Class of 2015',
+          profession: 'Software Engineer',
+          company: 'Google India',
+          location: 'Bangalore, India',
+          quote: 'Loyalo built my confidence and problem-solving skills for real-world challenges.',
+          sortOrder: 0,
+        },
+      ],
+    });
+  }
+
+  if ((await prisma.blogPost.count()) === 0) {
+    await prisma.blogPost.createMany({
+      data: [
+        {
+          title: 'Learning Beyond Classrooms',
+          excerpt: 'How project-based learning is shaping student confidence and creativity.',
+          content: 'Project-based learning helps students apply classroom concepts to real-world problems.',
+          author: 'Loyalo Editorial Team',
+          externalUrl: '#',
+          publishedAt: '2026-03-25',
+          sortOrder: 0,
+        },
+      ],
+    });
+  }
+}
+
 async function main() {
   await seedUser();
   await seedSiteSettings();
   await seedHomeContent();
   await seedProgramsFaculty();
   await seedMediaAndNotices();
+  await seedAdditionalContent();
 }
 
 main()

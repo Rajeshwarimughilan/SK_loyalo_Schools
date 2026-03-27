@@ -56,7 +56,8 @@ export function SiteSettingsPage() {
     setStatus((prev) => ({ ...prev, saving: true, error: '', success: '' }));
     try {
       const menu = JSON.parse(form.menuText || '[]');
-      await adminApi.updateSiteSettings({ ...form, menu });
+      const { menuText, ...siteSettingsFields } = form;
+      await adminApi.updateSiteSettings({ ...siteSettingsFields, menu });
       setStatus((prev) => ({ ...prev, success: 'Site settings updated.' }));
     } catch (err) {
       setStatus((prev) => ({ ...prev, error: err.message || 'Save failed' }));

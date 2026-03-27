@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './Academics.css';
-import { publicApi } from '../api/public';
 
 const navItems = [
   { id: 'about-curriculum', label: 'About the Curriculum' },
@@ -518,22 +517,6 @@ const hallOfFameByYear = [
 function Academics() {
   const [activeSection, setActiveSection] = useState('about-curriculum');
   const [selectedYear, setSelectedYear] = useState(hallOfFameByYear[0].year);
-  const [programs, setPrograms] = useState([]);
-
-  useEffect(() => {
-    let mounted = true;
-    publicApi.getPrograms().then((data) => {
-      if (!mounted) return;
-      setPrograms(Array.isArray(data) ? data : []);
-    }).catch(() => {
-      if (!mounted) return;
-      setPrograms([]);
-    });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
 
   const currentBatch =
     hallOfFameByYear.find((batch) => batch.year === selectedYear) || hallOfFameByYear[0];
@@ -762,22 +745,6 @@ function Academics() {
           </button>
         ))}
       </nav>
-
-      {programs.length > 0 ? (
-        <section className="ac-section" style={{ marginTop: '20px' }}>
-          <h2 className="ac-heading">Programs and Courses</h2>
-          <div className="ac-subject-grid">
-            {programs.map((program) => (
-              <article key={program.id}>
-                <h3>{program.title}</h3>
-                <p><strong>{program.category}</strong></p>
-                <p>{program.description}</p>
-                {program.duration ? <p><strong>Duration:</strong> {program.duration}</p> : null}
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
 
       <div className="ac-content-shell">{renderSection()}</div>
     </div>

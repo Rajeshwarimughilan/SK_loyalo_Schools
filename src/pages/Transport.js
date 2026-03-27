@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './Transport.css';
+import { publicApi } from '../api/public';
 
 const ROUTES = [
   {
@@ -97,9 +98,77 @@ const POLICIES = [
 ];
 
 export default function Transport() {
+  const [routesData, setRoutesData] = useState(ROUTES);
   const [activeRoute, setActiveRoute] = useState('R1');
 
-  const route = ROUTES.find((r) => r.id === activeRoute);
+  useEffect(() => {
+    let mounted = true;
+
+    publicApi.getTransportInfo().then((data) => {
+      if (!mounted || !Array.isArray(data) || data.length === 0) return;
+
+      const mapped = data.map((item, index) => {
+        let parsedStops = [];
+        if (item.stopsJson) {
+          try {
+            const parsed = JSON.parse(item.stopsJson);
+            if (Array.isArray(parsed)) parsedStops = parsed;
+          } catch (error) {
+            parsedStops = [];
+          }
+        }
+
+        const fallbackStops = [
+          {
+            name: 'Loyalo Main Gate',
+            time: item.morningPickup || '7:30 AM',
+            landmark: 'School Entrance',
+            terminal: true,
+          },
+          {
+            name: item.title,
+            time: item.departureTime || '3:45 PM',
+            landmark: item.description || 'Route Destination',
+            terminal: true,
+          },
+        ];
+
+        const finalStops = parsedStops.length ? parsedStops : fallbackStops;
+
+        return {
+          id: item.routeCode || `R${index + 1}`,
+          name: item.title,
+          color: ['#3b82f6', '#22c55e', '#f59e0b', '#8b5cf6'][index % 4],
+          busNo: item.busNo || 'TBA',
+          driver: item.driverName || 'TBA',
+          contact: item.contactPhone || 'TBA',
+          departureFrom: 'Loyalo Main Gate',
+          departureTime: item.departureTime || 'TBA',
+          morningPickup: item.morningPickup || 'TBA',
+          totalStops: finalStops.length,
+          stops: finalStops,
+        };
+      });
+
+      setRoutesData(mapped);
+      setActiveRoute(mapped[0]?.id || 'R1');
+    }).catch(() => {
+      if (!mounted) return;
+      setRoutesData(ROUTES);
+      setActiveRoute('R1');
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const totalStopsCovered = useMemo(
+    () => routesData.reduce((a, r) => a + (r.totalStops || 0), 0),
+    [routesData]
+  );
+
+  const route = routesData.find((r) => r.id === activeRoute) || routesData[0];
 
   return (
     <div className="transport-page">
@@ -114,15 +183,15 @@ export default function Transport() {
             your child's journey to knowledge starts before they reach our gates.
           </p>
           <div className="tp-hero-chips">
-            <span>🚌 {ROUTES.length} Active Routes</span>
-            <span>📍 {ROUTES.reduce((a, r) => a + r.totalStops, 0)} Stops Covered</span>
+            <span>🚌 {routesData.length} Active Routes</span>
+            <span>📍 {totalStopsCovered} Stops Covered</span>
             <span>✅ GPS Tracked</span>
           </div>
         </div>
 
         {/* Animated bus strip */}
         <div className="tp-bus-strip" aria-hidden="true">
-          {ROUTES.map((r) => (
+          {routesData.map((r) => (
             <div key={r.id} className="tp-bus-badge" style={{ '--rc': r.color }}>
               <span>🚌</span>
               <span>{r.name}</span>
@@ -134,7 +203,7 @@ export default function Transport() {
       {/* ── Route Selector ──────────────────────── */}
       <div className="tp-wrap">
         <div className="tp-route-tabs">
-          {ROUTES.map((r) => (
+          {routesData.map((r) => (
             <button
               key={r.id}
               className={`tp-route-tab${activeRoute === r.id ? ' is-active' : ''}`}
