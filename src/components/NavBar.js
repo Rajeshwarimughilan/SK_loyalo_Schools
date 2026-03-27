@@ -221,6 +221,16 @@ function NavBar() {
         >
           FEE STRUCTURE
         </NavLink>
+
+        <NavLink
+          to="/admin/login"
+          className={({ isActive }) =>
+            isActive ? 'nav-link is-active' : 'nav-link'
+          }
+          onClick={() => setOpen(false)}
+        >
+          ADMIN LOGIN
+        </NavLink>
         
       </nav>
     </header>
